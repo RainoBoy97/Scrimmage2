@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 public class UserCommands implements CommandExecutor {
 
 	private TeamHandler th;
+	private MatchHandler mh;
 
 	public UserCommands() {
 		this.th = Scrimmage.getTH();
@@ -54,8 +55,7 @@ public class UserCommands implements CommandExecutor {
 				Scrimmage.msg(player, ChatColor.RED + "Invalid team!");
 				return true;
 			}
-			Scrimmage.getTH().addPlayer(player, team);
-			Scrimmage.msg(player, ChatColor.GRAY + "You joined team " + team.color() + StringUtils.capitalize(team.name().toLowerCase()));
+			
 		}
 		return true;
 	}
