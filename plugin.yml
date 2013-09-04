@@ -1,0 +1,16 @@
+name: Scrimmage
+version: 1.0
+main: me.rainoboy97.scrimmage.Scrimmage
+depends: [TagAPI]
+commands:
+  start:
+    description: Scrimmage command
+    aliases: [begin]
+  cancel:
+    description: Scrimmage command
+  end:
+    description: Scrimmage command
+  join:
+    description: Scrimmage command
+  g:
+    description: Scrimmage command
