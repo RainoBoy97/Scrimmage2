@@ -22,7 +22,6 @@ public class MatchHandler {
 
 	private static void setRunning(boolean running) {
 		MatchHandler.running = running;
-		if(running) setPlayed(true);
 	}
 	
 	private static void setPlayed(boolean played) {
@@ -63,6 +62,7 @@ public class MatchHandler {
 
 	public static void stop(Team winner) {
 		setRunning(false);
+		setPlayed(true);
 		if (winner == null) {
 			Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "##### " + ChatColor.GREEN + "The match was forced to end!" + ChatColor.DARK_GRAY + " #####");
 		} else {

@@ -1,6 +1,7 @@
 package me.rainoboy97.scrimmage.commands;
 
 import me.rainoboy97.scrimmage.Scrimmage;
+import me.rainoboy97.scrimmage.handlers.MatchHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
 
@@ -15,6 +16,7 @@ import org.bukkit.entity.Player;
 public class UserCommands implements CommandExecutor {
 
 	private TeamHandler th;
+	private MatchHandler mh;
 
 	public UserCommands() {
 		this.th = Scrimmage.getTH();
@@ -49,8 +51,15 @@ public class UserCommands implements CommandExecutor {
 				Scrimmage.msg(player, ChatColor.RED + "Invalid team!");
 				return true;
 			}
-			Scrimmage.getTH().addPlayer(player, team);
-			Scrimmage.msg(player, ChatColor.GRAY + "You joined team " + team.color() + StringUtils.capitalize(team.name().toLowerCase()));
+			if (MatchHandler.played()) {
+				Scrimmage.getTH().addPlayer(player, team);
+				Scrimmage.msg(player, ChatColor.GRAY + "You joined team " + team.color() + StringUtils.capitalize(team.name().toLowerCase()));
+			}
+			else 
+			{
+				
+			}
+			
 		}
 		return true;
 	}
