@@ -1,6 +1,7 @@
 name: Scrimmage
 version: 1.0
 main: me.rainoboy97.scrimmage.Scrimmage
+authors: [RainoBoy97, XX_iiShockzz_XX]
 depends: [TagAPI]
 commands:
   start:
