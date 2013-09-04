@@ -32,6 +32,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.StructureGrowEvent;
+import org.kitteh.tag.PlayerReceiveNameTagEvent;
 
 public class PlayerListener implements Listener {
 
@@ -42,6 +43,11 @@ public class PlayerListener implements Listener {
 	public PlayerListener(Scrimmage scrimmage) {
 		this.plugin = scrimmage;
 		this.th = Scrimmage.getTH();
+	}
+	
+	@EventHandler
+	public void event_tag(PlayerReceiveNameTagEvent event) {
+		event.setTag(th.getTeamColor(th.getTeam(event.getNamedPlayer())) + event.getNamedPlayer().getName());
 	}
 
 	@EventHandler

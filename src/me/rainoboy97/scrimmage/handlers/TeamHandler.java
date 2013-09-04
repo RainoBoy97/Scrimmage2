@@ -9,6 +9,7 @@ import me.rainoboy97.scrimmage.utils.PlayerUtils;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.kitteh.tag.TagAPI;
 
 public class TeamHandler {
 
@@ -21,6 +22,7 @@ public class TeamHandler {
 	public void addPlayer(Player player, Team team) {
 		players.put(player.getName(), team);
 		PlayerUtils.setListName(player, getTeamColor(getTeam(player)) + player.getName());
+		TagAPI.refreshPlayer(player);
 	}
 
 	public void removePlayer(Player player) {
@@ -70,10 +72,11 @@ public class TeamHandler {
 		public ChatColor color() {
 			return color;
 		}
-		
+
 		public static Team getTeam(String team) {
-			for(Team t : values()) {
-				if(t.name().toLowerCase().contains(team.toLowerCase())) return t;
+			for (Team t : values()) {
+				if (t.name().toLowerCase().contains(team.toLowerCase()))
+					return t;
 			}
 			return null;
 		}
