@@ -1,6 +1,7 @@
 package me.rainoboy97.scrimmage.commands;
 
 import me.rainoboy97.scrimmage.Scrimmage;
+import me.rainoboy97.scrimmage.handlers.MatchHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
 
@@ -40,6 +41,10 @@ public class UserCommands implements CommandExecutor {
 		}
 		// JOIN
 		if (cmd.getName().equalsIgnoreCase("join")) {
+			if (MatchHandler.played()) {
+				Scrimmage.msg(player, ChatColor.RED + "Match is over - Please wait for the next round!");
+				return true;
+			}
 			if (args.length != 1) {
 				Scrimmage.msg(player, ChatColor.RED + "/join <red|blue|observer>");
 				return true;

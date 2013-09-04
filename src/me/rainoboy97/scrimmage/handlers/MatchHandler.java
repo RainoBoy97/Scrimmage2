@@ -22,7 +22,7 @@ public class MatchHandler {
 
 	private static void setRunning(boolean running) {
 		MatchHandler.running = running;
-		if(running) setPlayed(true);
+		if(!running) setPlayed(true);
 	}
 	
 	private static void setPlayed(boolean played) {
