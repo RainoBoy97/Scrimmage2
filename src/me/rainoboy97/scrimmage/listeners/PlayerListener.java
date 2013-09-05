@@ -23,6 +23,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockSpreadEvent;
 import org.bukkit.event.block.EntityBlockFormEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -206,6 +207,24 @@ public class PlayerListener implements Listener {
 	public void event_grow(StructureGrowEvent event) {
 		if (!MatchHandler.running()) {
 			event.setCancelled(true);
+		}
+	}
+	
+	@EventHandler
+	public void event_damage(EntityDamageByEntityEvent event) {
+		if(!MatchHandler.running()) {
+			event.setCancelled(true);
+			return;
+		}
+		if(event.getEntity() instanceof Player) {
+			if(event.getDamager() instanceof Player) {
+				Player player = (Player) event.getEntity();
+				Player damager = (Player) event.getDamager();
+				if(th.isObserver(damager) || th.getTeam(player) == th.getTeam(damager)) {
+					event.setCancelled(true);
+					return;
+				}
+			}
 		}
 	}
 

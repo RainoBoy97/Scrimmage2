@@ -16,7 +16,6 @@ import org.bukkit.entity.Player;
 public class UserCommands implements CommandExecutor {
 
 	private TeamHandler th;
-	private MatchHandler mh;
 
 	public UserCommands() {
 		this.th = Scrimmage.getTH();
