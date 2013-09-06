@@ -24,7 +24,7 @@ public class PlayerUtils {
 	
 	public static void setListName(Player player, String newName) {
 		if(newName.length() > 16) {
-			newName = newName.substring(0, 15);
+			newName = newName.substring(0, 16);
 		}
 		player.setPlayerListName(newName);
 	}

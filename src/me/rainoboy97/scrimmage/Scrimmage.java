@@ -5,7 +5,7 @@ import me.rainoboy97.scrimmage.commands.UserCommands;
 import me.rainoboy97.scrimmage.handlers.MatchHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
-import me.rainoboy97.scrimmage.listeners.PlayerListener;
+import me.rainoboy97.scrimmage.listeners.Listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -31,21 +31,23 @@ public class Scrimmage extends JavaPlugin {
 	}
 
 	public void onDisable() {
-		if(MatchHandler.running()) {
+		if (MatchHandler.running()) {
 			MatchHandler.stop(null);
 		}
 	}
 
 	public void onEnable() {
-		this.regListener(new PlayerListener(this));
+		this.regListener(new Listeners(this));
 
 		this.regUserCommand("g");
 		this.regUserCommand("join");
+		this.regAdminCommand("a");
 		this.regAdminCommand("start");
 		this.regAdminCommand("cancel");
 		this.regAdminCommand("end");
-		
-		for(Player p : Bukkit.getOnlinePlayers()) {
+		this.regAdminCommand("setnext");
+
+		for (Player p : Bukkit.getOnlinePlayers()) {
 			th.addPlayer(p, Team.OBSERVER);
 		}
 	}
@@ -73,9 +75,9 @@ public class Scrimmage extends JavaPlugin {
 	public static TeamHandler getTH() {
 		return Scrimmage.th;
 	}
-	
+
 	public static MatchHandler getMH() {
 		return Scrimmage.mh;
 	}
-	
+
 }

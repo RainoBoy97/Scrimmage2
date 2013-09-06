@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.utils.PlayerUtils;
 
 import org.bukkit.ChatColor;
@@ -23,6 +24,10 @@ public class TeamHandler {
 		players.put(player.getName(), team);
 		PlayerUtils.setListName(player, getTeamColor(getTeam(player)) + player.getName());
 		TagAPI.refreshPlayer(player);
+		if(team == Team.OBSERVER) {
+			player.addAttachment(Scrimmage.get(), "worldedit.navigation.thru.tool", true);
+			player.addAttachment(Scrimmage.get(), "worldedit.navigation.jump.tool", true);
+		}
 	}
 
 	public void removePlayer(Player player) {
@@ -47,6 +52,14 @@ public class TeamHandler {
 			}
 		}
 		return res;
+	}
+	
+	public Team getTeamWithLessPlayers() {
+		int red = count(Team.RED);
+		int blue = count(Team.BLUE);
+		if(blue > red) return Team.RED;
+		else return Team.BLUE;
+		
 	}
 
 	public String getTeamName(Team team) {

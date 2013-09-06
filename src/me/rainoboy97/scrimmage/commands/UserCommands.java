@@ -45,18 +45,20 @@ public class UserCommands implements CommandExecutor {
 				Scrimmage.msg(player, ChatColor.RED + "Match is over - Please wait for the next round!");
 				return true;
 			}
-			if (args.length != 1) {
-				Scrimmage.msg(player, ChatColor.RED + "/join <red|blue|observer>");
-				return true;
+			Team team;
+			if(args.length > 0) {
+				team = Team.getTeam(args[0]);
+			} else {
+				team = th.getTeamWithLessPlayers();
 			}
-			Team team = Team.getTeam(args[0]);
 			if (team == null) {
 				Scrimmage.msg(player, ChatColor.RED + "Invalid team!");
 				return true;
 			}
-			
+			th.addPlayer(player, team);
+			Scrimmage.msg(player, ChatColor.GRAY + "You joined team " + th.getTeamColor(team) + StringUtils.capitalize(team.name().toLowerCase()));
+
 		}
 		return true;
 	}
-
 }
