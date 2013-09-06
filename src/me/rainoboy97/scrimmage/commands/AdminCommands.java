@@ -4,7 +4,6 @@ import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.handlers.CountdownHandler;
 import me.rainoboy97.scrimmage.handlers.MatchHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
-import me.rainoboy97.scrimmage.map.MapHandler;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -21,7 +20,7 @@ public class AdminCommands implements CommandExecutor {
 	public AdminCommands() {
 		this.th = Scrimmage.getTH();
 	}
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
 		if (!(sender instanceof Player)) {
@@ -34,16 +33,16 @@ public class AdminCommands implements CommandExecutor {
 			player.sendMessage(ChatColor.RED + "Only OP's can use this command!");
 			return true;
 		}
-		
-		//A
-		if(cmd.getName().equalsIgnoreCase("a")) {
-			if(args.length == 0) {
+
+		// A
+		if (cmd.getName().equalsIgnoreCase("a")) {
+			if (args.length == 0) {
 				Scrimmage.msg(player, ChatColor.RED + "/a <message>");
 				return true;
 			}
 			String message = StringUtils.join(args, " ", 0, args.length);
-			for(Player p : Bukkit.getOnlinePlayers()) {
-				if(p.isOp()) {
+			for (Player p : Bukkit.getOnlinePlayers()) {
+				if (p.isOp()) {
 					p.sendMessage(ChatColor.GRAY + "[A] " + th.getTeamColor(th.getTeam(player)) + player.getName() + ChatColor.WHITE + ": " + message);
 				}
 			}
@@ -59,11 +58,11 @@ public class AdminCommands implements CommandExecutor {
 					player.sendMessage("/start <seconds>");
 				}
 			}
-			if(MatchHandler.running()) {
+			if (MatchHandler.running()) {
 				Scrimmage.msg(player, ChatColor.RED + "Match already started!");
 				return true;
 			}
-			if(MatchHandler.played()) {
+			if (MatchHandler.played()) {
 				Scrimmage.msg(player, ChatColor.RED + "Match already played, can not be resumed!");
 				return true;
 			}
@@ -86,10 +85,10 @@ public class AdminCommands implements CommandExecutor {
 			Scrimmage.msg(player, ChatColor.GREEN + "Force stopped the current match!");
 			MatchHandler.stop(null);
 		}
-		
-		//LOADMAP
-		if(cmd.getName().equalsIgnoreCase("setnext")) {
-			if(args.length == 0) {
+
+		// LOADMAP
+		if (cmd.getName().equalsIgnoreCase("setnext")) {
+			if (args.length == 0) {
 				Scrimmage.msg(player, ChatColor.RED + "/setnext <mapname>");
 				return true;
 			}

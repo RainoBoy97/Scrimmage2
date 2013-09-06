@@ -44,8 +44,6 @@ public class MatchHandler {
 			Player player = Bukkit.getPlayerExact(p);
 			PlayerUtils.clear(player);
 			player.setGameMode(GameMode.SURVIVAL);
-			player.addAttachment(Scrimmage.get(), "worldedit.navigation.thru.tool", false);
-			player.addAttachment(Scrimmage.get(), "worldedit.navigation.jump.tool", false);
 			for(String p2 : th.getPlayersOnTeam(Team.OBSERVER)) {
 				player.hidePlayer(Bukkit.getPlayerExact(p2));
 			}
@@ -55,8 +53,6 @@ public class MatchHandler {
 			Player player = Bukkit.getPlayerExact(p);
 			PlayerUtils.clear(player);
 			player.setGameMode(GameMode.SURVIVAL);
-			player.addAttachment(Scrimmage.get(), "worldedit.navigation.thru.tool", false);
-			player.addAttachment(Scrimmage.get(), "worldedit.navigation.jump.tool", false);
 			for(String p2 : th.getPlayersOnTeam(Team.OBSERVER)) {
 				player.hidePlayer(Bukkit.getPlayerExact(p2));
 			}
@@ -76,8 +72,6 @@ public class MatchHandler {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			PlayerUtils.clear(player);
 			player.setGameMode(GameMode.CREATIVE);
-			player.addAttachment(Scrimmage.get(), "worldedit.navigation.thru.tool", true);
-			player.addAttachment(Scrimmage.get(), "worldedit.navigation.jump.tool", true);
 			
 			for(Player p : Bukkit.getOnlinePlayers()) {
 				player.showPlayer(p);
