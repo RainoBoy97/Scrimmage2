@@ -93,7 +93,6 @@ public class AdminCommands implements CommandExecutor {
 				Scrimmage.msg(player, ChatColor.RED + "/setnext <mapname>");
 				return true;
 			}
-			MapHandler.setNext(player, StringUtils.join(args, " ", 0, args.length));
 		}
 		return true;
 	}
