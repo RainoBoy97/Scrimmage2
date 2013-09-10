@@ -44,9 +44,9 @@ public class CountdownHandler {
             public void run() {
                 if (count != 0) {
                     if (count % 5 == 0 || count <= 5 && count > 1) {
-                        Bukkit.broadcastMessage(ChatColor.GREEN + "Game starting in " + ChatColor.RED + count + ChatColor.GREEN + " seconds!");
+                        Bukkit.broadcastMessage(ChatColor.AQUA + "Server restarting in " + ChatColor.GOLD + count + ChatColor.AQUA + " seconds!");
                     } else if (count == 1) {
-                        Bukkit.broadcastMessage(ChatColor.GREEN + "Game starting in " + ChatColor.RED + count + ChatColor.GREEN + " second!");
+                        Bukkit.broadcastMessage(ChatColor.AQUA + "Server restarting in " + ChatColor.GOLD + count + ChatColor.AQUA + " second!");
                     }
                 } else if (count == 0) {
                     for (Player player : Bukkit.getOnlinePlayers()) {
