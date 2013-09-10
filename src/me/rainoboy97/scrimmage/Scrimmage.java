@@ -13,6 +13,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import fr.aumgn.bukkitutils.command.CommandsRegistration;
+
+import java.util.Locale;
 
 public class Scrimmage extends JavaPlugin {
 
@@ -40,12 +43,17 @@ public class Scrimmage extends JavaPlugin {
 		this.regListener(new Listeners(this));
 
 		this.regUserCommand("g");
-		this.regUserCommand("join");
+        this.regAdminCommand("restart");
+        this.regUserCommand("join");
 		this.regAdminCommand("a");
 		this.regAdminCommand("start");
 		this.regAdminCommand("cancel");
 		this.regAdminCommand("end");
 		this.regAdminCommand("setnext");
+
+        CommandsRegistration registration = new CommandsRegistration(
+        this, Locale.getDefault());
+        registration.register(new AdminCommands());
 
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			th.addPlayer(p, Team.OBSERVER);
