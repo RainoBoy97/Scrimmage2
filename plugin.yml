@@ -1,7 +1,7 @@
 name: Scrimmage
-version: 1.0
+version: 2.0
 main: me.rainoboy97.scrimmage.Scrimmage
-authors: [RainoBoy97, XX_iiShockzz_XX]
+authors: [RainoBoy97, XX_iiShockzz_XX, hdt80bro, ShinyDialga45, bookofnathan]
 depends: [TagAPI]
 commands:
   start:
@@ -15,6 +15,7 @@ commands:
     description: End the current match.
   join:
     description: Join a team
+    aliases: [j]
   g:
     description: Talk in global chat.
   setnext:
