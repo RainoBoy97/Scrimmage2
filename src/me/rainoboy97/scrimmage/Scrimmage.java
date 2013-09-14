@@ -19,7 +19,8 @@ import java.util.Locale;
 
 public class Scrimmage extends JavaPlugin {
 
-	private static Scrimmage i;
+	public static boolean pvp;
+    private static Scrimmage i;
 	private static TeamHandler th;
 	private static MatchHandler mh;
 
@@ -50,6 +51,7 @@ public class Scrimmage extends JavaPlugin {
 		this.regAdminCommand("cancel");
 		this.regAdminCommand("end");
 		this.regAdminCommand("setnext");
+        this.regAdminCommand("pvp");
 
         CommandsRegistration registration = new CommandsRegistration(
         this, Locale.getDefault());

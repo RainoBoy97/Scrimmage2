@@ -24,4 +24,6 @@ commands:
     restart:
         description:
            Shuts down the server (will not actually restart).
-
+    pvp:
+        description:
+           Disables PVP.

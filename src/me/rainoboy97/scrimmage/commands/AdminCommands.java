@@ -16,8 +16,7 @@ import org.bukkit.entity.Player;
 import fr.aumgn.bukkitutils.command.*;
 
 public class AdminCommands implements Commands, CommandExecutor {
-
-	private TeamHandler th;
+    private TeamHandler th;
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
 		if (!(sender instanceof Player)) {
@@ -74,6 +73,19 @@ public class AdminCommands implements Commands, CommandExecutor {
 			Scrimmage.msg(player, ChatColor.GREEN + "Cancelled all running tasks!");
 			CountdownHandler.cancelAll();
 		}
+
+        // PVP
+        if (cmd.getName().equalsIgnoreCase("pvp")) {
+            if (Scrimmage.pvp = true) {
+            Scrimmage.msg(player, ChatColor.AQUA + "PVP is now" + ChatColor.RED + "OFF");
+            Scrimmage.pvp = false;
+        }
+            if (Scrimmage.pvp = false) {
+                Scrimmage.msg(player, ChatColor.AQUA + "PVP is now" + ChatColor.GREEN + "ON");
+                Scrimmage.pvp = true;
+            }
+        }
+
 
 		// END
 		if (cmd.getName().equalsIgnoreCase("end")) {
