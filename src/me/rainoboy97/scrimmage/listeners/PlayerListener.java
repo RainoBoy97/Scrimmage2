@@ -112,6 +112,13 @@ public class PlayerListener implements Listener {
 		}
 	}
 
+    @EventHandler
+    public void event_ppvp(EntityDamageByEntityEvent event) {
+        if (Scrimmage.pvp = false) {
+            event.setCancelled(true);
+        }
+    }
+
 	@EventHandler
 	public void event_break(BlockBreakEvent event) {
 		if (!MatchHandler.running() || th.isObserver(event.getPlayer())) {
