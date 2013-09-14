@@ -1,26 +1,29 @@
 name: Scrimmage
+version: 1.0
 main: me.rainoboy97.scrimmage.Scrimmage
-version: 0.4
-description: Scrimmage plugin for bukkit
+authors: [RainoBoy97, XX_iiShockzz_XX]
+depends: [TagAPI]
 commands:
-    start:
-        description:
-            Start the countdown for a match
-    test:
-        description:
-            Test command, ignore.
-    join:
-        description:
-            Join a team.
-    g:
-        description:
-            Use global chat, everyone can hear you.
-    cancel:
-        description:
-            Cancel the countdown for a match.
-    tp:
-        description:
-            Teleport to a player in observers.
-    pvp:
-        description:
-           Disables PVP.
+  start:
+    description: Scrimmage command
+    aliases: [begin]
+  cycle:
+    description: Scrimmage command
+  cancel:
+    description: Scrimmage command
+  end:
+    description: Scrimmage command
+  join:
+    description: Scrimmage command
+  g:
+    description: Scrimmage command
+  setnext:
+    description: Scrimmage command
+    aliases: [sn]
+  a:
+    description: Scrimmage command
+  operators:
+    description: Scrimmage command
+    aliases: [ops]
+  pvp:
+    description: Scrimmage command
