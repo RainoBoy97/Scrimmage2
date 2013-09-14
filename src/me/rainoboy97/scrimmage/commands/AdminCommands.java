@@ -128,7 +128,10 @@ public class AdminCommands implements CommandExecutor {
         
         //PVP
         if(cmd.getName().equalsIgnoreCase("pvp")) {
-        	
+        	Scrimmage.pvp = !Scrimmage.pvp;
+        	String toggle = ChatColor.GREEN + "on";
+        	if(!Scrimmage.pvp) toggle = ChatColor.RED + "off";
+        	Scrimmage.msg(player, ChatColor.GRAY + "PvP is now " + toggle + ChatColor.GRAY + "!");
         }
         return true;
     }

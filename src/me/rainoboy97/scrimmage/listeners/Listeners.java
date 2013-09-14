@@ -259,7 +259,7 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void event_damage(EntityDamageByEntityEvent event) {
-		if (!MatchHandler.running()) {
+		if (!MatchHandler.running() || !Scrimmage.pvp) {
 			event.setCancelled(true);
 			return;
 		}

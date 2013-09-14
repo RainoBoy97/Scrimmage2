@@ -20,6 +20,8 @@ public class Scrimmage extends JavaPlugin {
     private static Scrimmage i;
     private static TeamHandler th;
     private static MatchHandler mh;
+    
+    public static boolean pvp = true;
 
     public Scrimmage() {
         Scrimmage.i = this;
@@ -51,6 +53,7 @@ public class Scrimmage extends JavaPlugin {
         this.regAdminCommand("cancel");
         this.regAdminCommand("end");
         this.regAdminCommand("setnext");
+        this.regAdminCommand("pvp");
 
         for (Player p : Bukkit.getOnlinePlayers()) {
             th.addPlayer(p, Team.OBSERVER);
