@@ -37,29 +37,6 @@ public class CountdownHandler {
 		}.runTaskTimer(Scrimmage.get(), 0L, 20L));
 	}
 
-    public static void restartCountdown(final int seconds) {
-        cancelAll();
-        tasks.add(new BukkitRunnable() {
-            int count = seconds;
-            public void run() {
-                if (count != 0) {
-                    if (count % 5 == 0 || count <= 5 && count > 1) {
-                        Bukkit.broadcastMessage(ChatColor.AQUA + "Server restarting in " + ChatColor.GOLD + count + ChatColor.AQUA + " seconds!");
-                    } else if (count == 1) {
-                        Bukkit.broadcastMessage(ChatColor.AQUA + "Server restarting in " + ChatColor.GOLD + count + ChatColor.AQUA + " second!");
-                    }
-                } else if (count == 0) {
-                    for (Player player : Bukkit.getOnlinePlayers()) {
-                        player.kickPlayer(ChatColor.RED + "Server Restarting! " + ChatColor.GOLD + "Rejoin!");
-                    }
-                    Bukkit.shutdown();
-                    this.cancel();
-                }
-                count--;
-            }
-        }.runTaskTimer(Scrimmage.get(), 0L, 20L));
-    }
-
 
 
                 public static void cancelAll () {

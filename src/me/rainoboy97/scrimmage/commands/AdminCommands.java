@@ -13,9 +13,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import fr.aumgn.bukkitutils.command.*;
 
-public class AdminCommands implements Commands, CommandExecutor {
+public class AdminCommands implements CommandExecutor {
     private TeamHandler th;
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
@@ -98,27 +97,5 @@ public class AdminCommands implements Commands, CommandExecutor {
 		}
     return true;
 	}
-
-    //RESTART
-    @fr.aumgn.bukkitutils.command.Command(name = "restart", flags = "f")
-    public void restartcountdown(CommandSender sender, CommandArgs args) {
-        Bukkit.broadcastMessage(ChatColor.RED + "Match running, use -f to force end");
-        int seconds = 30;
-        if (args.length() != 0) {
-            try {
-                seconds = Integer.parseInt(args.toString()
-                );
-            } catch (Exception e) {
-                sender.sendMessage("/restart <seconds>");
-            }
-        }
-        if (args.hasFlag('f')) {
-            MatchHandler.stop(null);
-        } else if (MatchHandler.running()) {
-            Scrimmage.msg(sender, ChatColor.RED + "Match running, use -f to force end");
-        }
-        Scrimmage.msg(sender, ChatColor.GREEN + "Restart in: (" + ChatColor.RED + seconds + ChatColor.GREEN + ")");
-        CountdownHandler.restartCountdown(seconds);
-    }
 }
 
