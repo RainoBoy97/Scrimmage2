@@ -5,25 +5,25 @@ authors: [RainoBoy97, XX_iiShockzz_XX]
 depends: [TagAPI]
 commands:
   start:
-    description: Scrimmage command
+    description: Start the match.
     aliases: [begin]
   cycle:
-    description: Scrimmage command
+    description: Cycle between maps.
   cancel:
-    description: Scrimmage command
+    description: Cancel the current countdown.
   end:
-    description: Scrimmage command
+    description: End the current match.
   join:
-    description: Scrimmage command
+    description: Join a team
   g:
-    description: Scrimmage command
+    description: Talk in global chat.
   setnext:
-    description: Scrimmage command
+    description: Set the next map.
     aliases: [sn]
   a:
-    description: Scrimmage command
+    description: Admin chat.
   operators:
-    description: Scrimmage command
+    description: List all operators.
     aliases: [ops]
   pvp:
-    description: Scrimmage command
+    description: Toggle PVP
