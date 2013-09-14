@@ -45,8 +45,8 @@ import org.kitteh.tag.PlayerReceiveNameTagEvent;
 public class Listeners implements Listener {
 
 	@SuppressWarnings("unused")
-	private Scrimmage plugin;
-	private TeamHandler th;
+	private Scrimmage	plugin;
+	private TeamHandler	th;
 
 	public Listeners(Scrimmage scrimmage) {
 		this.plugin = scrimmage;
@@ -87,6 +87,7 @@ public class Listeners implements Listener {
 			Player t = Bukkit.getPlayerExact(p);
 			t.sendMessage(ChatColor.GRAY + "[T] " + Scrimmage.getPrefix(player) + th.getTeamColor(th.getTeam(player)) + player.getName() + ChatColor.WHITE + ": " + event.getMessage());
 		}
+		Scrimmage.logChat("[T] " + Scrimmage.getPrefix(player) + player.getName() + ": " + event.getMessage());
 		event.setCancelled(true);
 	}
 
@@ -225,7 +226,7 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void event_weatherchange(WeatherChangeEvent event) {
-		if (!event.toWeatherState()) {
+		if (event.toWeatherState()) {
 			event.setCancelled(true);
 		}
 	}
@@ -237,7 +238,7 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void event_entityspawn(CreatureSpawnEvent event) {
-		if(!MatchHandler.running() || event.getEntity() instanceof Monster) {
+		if (!MatchHandler.running() || event.getEntity() instanceof Monster) {
 			event.setCancelled(true);
 		}
 	}
@@ -262,23 +263,27 @@ public class Listeners implements Listener {
 			event.setCancelled(true);
 			return;
 		}
-		if (event.getEntity() instanceof Player) {
-			if (event.getDamager() instanceof Player) {
+		if (event.getDamager() instanceof Player) {
+			Player damager = (Player) event.getDamager();
+			if (th.isObserver(damager)) {
+				event.setCancelled(true);
+				return;
+			}
+			if (event.getEntity() instanceof Player) {
 				Player player = (Player) event.getEntity();
-				Player damager = (Player) event.getDamager();
-				if (th.isObserver(damager) || th.getTeam(player) == th.getTeam(damager)) {
+				if (th.getTeam(player) == th.getTeam(damager)) {
 					event.setCancelled(true);
 					return;
 				}
-			} else if (event.getDamager() instanceof Projectile) {
-				Player player = (Player) event.getEntity();
-				Projectile proj = (Projectile) event.getDamager();
-				if (proj.getShooter() instanceof Player) {
-					Player damager = (Player) proj.getShooter();
-					if (th.isObserver(damager) || th.getTeam(player) == th.getTeam(damager)) {
-						event.setCancelled(true);
-						return;
-					}
+			}
+		} else if (event.getDamager() instanceof Projectile) {
+			Player player = (Player) event.getEntity();
+			Projectile proj = (Projectile) event.getDamager();
+			if (proj.getShooter() instanceof Player) {
+				Player shooter = (Player) proj.getShooter();
+				if (th.isObserver(shooter) || th.getTeam(player) == th.getTeam(shooter)) {
+					event.setCancelled(true);
+					return;
 				}
 			}
 		}
