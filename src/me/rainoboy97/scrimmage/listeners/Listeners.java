@@ -58,6 +58,10 @@ public class Listeners implements Listener {
 
     @EventHandler
     public void event_craft(PlayerInteractEvent event) {
+        if (!MatchHandler.running() || th.isObserver(event.getPlayer())) {
+            event.setCancelled(true);
+            return;
+        }
         if(!(event.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
         if(!(event.getClickedBlock().getType() == Material.WORKBENCH)) return;
         event.setCancelled(true);
