@@ -7,24 +7,13 @@ import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockBurnEvent;
-import org.bukkit.event.block.BlockDamageEvent;
-import org.bukkit.event.block.BlockFadeEvent;
-import org.bukkit.event.block.BlockFormEvent;
-import org.bukkit.event.block.BlockFromToEvent;
-import org.bukkit.event.block.BlockGrowEvent;
-import org.bukkit.event.block.BlockIgniteEvent;
-import org.bukkit.event.block.BlockPhysicsEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.block.BlockSpreadEvent;
-import org.bukkit.event.block.EntityBlockFormEvent;
-import org.bukkit.event.block.LeavesDecayEvent;
+import org.bukkit.event.block.*;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
@@ -66,6 +55,14 @@ public class Listeners implements Listener {
 
 		event.setJoinMessage(Scrimmage.getPrefix(player) + th.getTeamColor(th.getTeam(player)) + player.getName() + ChatColor.YELLOW + " joined the game!");
 	}
+
+    @EventHandler
+    public void event_craft(PlayerInteractEvent event) {
+        if(!(event.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
+        if(!(event.getClickedBlock().getType() == Material.WORKBENCH)) return;
+        event.setCancelled(true);
+        event.getPlayer().openWorkbench(null, true);
+    }
 
 	@EventHandler
 	public void event_quit(PlayerQuitEvent event) {
