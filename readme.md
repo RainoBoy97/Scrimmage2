@@ -2,7 +2,9 @@ Scrimmage
 =====
 A Scrimmage minecraft plugin for Bukkit! Used to play scrimmages and having fun!
 
-Coders: RainoBoy97, hdt80bro, ShinyDialga45
+__Requires TagAPI__
+
+Coders: RainoBoy97, hdt80bro, ShinyDialga45, bookofnathan
 
 Help: ElectroidFilms
 
