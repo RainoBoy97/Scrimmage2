@@ -7,11 +7,13 @@ import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockDamageEvent;
@@ -95,7 +97,12 @@ public class Listeners implements Listener {
 	public void event_interact(PlayerInteractEvent event) {
 		if (!MatchHandler.running() || th.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
+			return;
 		}
+		if(!(event.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
+		if(!(event.getClickedBlock().getType() == Material.WORKBENCH)) return;
+		event.setCancelled(true);
+		event.getPlayer().openWorkbench(null, true);
 	}
 
 	@EventHandler
