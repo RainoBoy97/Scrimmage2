@@ -6,6 +6,6 @@ __Requires TagAPI__
 
 Coders: RainoBoy97, hdt80bro, ShinyDialga45, bookofnathan
 
-Moral support: ElectroidFilms <3
+Moral support: ElectroidFilms
 
 Initial idea and plugin: Barnyard_Owl
