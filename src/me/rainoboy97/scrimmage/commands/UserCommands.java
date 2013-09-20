@@ -86,6 +86,11 @@ public class UserCommands implements CommandExecutor {
             String ops = sb.toString().trim().substring(0, sb.length() - 2);
             player.sendMessage(ops);
         }
+        // RAGEQUIT
+        if (cmd.getName().equalsIgnoreCase("ragequit")) {
+        	player.kickPlayer("YOU HAVE RAGEQUIT");
+        	Bukkit.broadcastMessage(player.getDisplayName() + " has ragequit!");
+        }
         return true;
     }
 }

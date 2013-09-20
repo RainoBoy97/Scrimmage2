@@ -32,7 +32,7 @@ public class SMap {
 	private Location	bluespawn;
 
 	public SMap(FileConfiguration conf, World world, String filename) {
-		setName(conf.getString("name"));
+		setName(conf.getString("name")); 
 		setFilename(filename);
 		setWorld(world);
 	}
