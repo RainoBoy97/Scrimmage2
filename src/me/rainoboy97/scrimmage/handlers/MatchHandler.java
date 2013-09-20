@@ -18,15 +18,13 @@ public class MatchHandler {
 		MatchHandler.th = Scrimmage.getTH();
 	}
 
-	private static MatchState	state = MatchState.PREGAME;
-	private static boolean	played	= false;
+	private static MatchState	state	= MatchState.PREGAME;
+	
+	private static long starttime = 0;
+	private static long endtime = 0;
 
 	private static void setState(MatchState state) {
 		MatchHandler.state = state;
-	}
-
-	private static void setPlayed(boolean played) {
-		MatchHandler.played = played;
 	}
 
 	public static boolean running() {
@@ -34,12 +32,12 @@ public class MatchHandler {
 	}
 
 	public static boolean played() {
-		return MatchHandler.played;
+		return MatchHandler.state == MatchState.ENDED || MatchHandler.state == MatchState.CYCLING;
 	}
 
 	public static void start() {
 		setState(MatchState.INGAME);
-
+		starttime = System.currentTimeMillis();
 		for (String p : th.getPlayersOnTeam(Team.RED)) {
 			Player player = Bukkit.getPlayerExact(p);
 			PlayerUtils.clear(player);
@@ -61,7 +59,7 @@ public class MatchHandler {
 
 	public static void stop(Team winner) {
 		setState(MatchState.ENDED);
-		setPlayed(true);
+		endtime = System.currentTimeMillis();
 		if (winner == null) {
 			Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "##### " + ChatColor.GREEN + "The match was forced to end!" + ChatColor.DARK_GRAY + " #####");
 		} else {
@@ -78,6 +76,15 @@ public class MatchHandler {
 		}
 	}
 	
+	public static long getTime() {
+		System.out.println(System.currentTimeMillis());
+		System.out.println(starttime);
+		System.out.println(endtime);
+		if(running()) return System.currentTimeMillis() - starttime;
+		else if(played()) return endtime - starttime;
+		else return 0;
+	}
+
 	public enum MatchState {
 		PREGAME, INGAME, ENDED, CYCLING;
 	}

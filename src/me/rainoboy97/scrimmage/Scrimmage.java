@@ -47,6 +47,7 @@ public class Scrimmage extends JavaPlugin {
         this.regUserCommand("g");
         this.regUserCommand("join");
         this.regUserCommand("operators");
+        this.regUserCommand("match");
         this.regAdminCommand("a");
         this.regAdminCommand("start");
         this.regAdminCommand("cycle");

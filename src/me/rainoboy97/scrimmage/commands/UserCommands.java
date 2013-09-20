@@ -4,6 +4,7 @@ import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.handlers.MatchHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
+import me.rainoboy97.scrimmage.utils.TimeUtils;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -85,6 +86,17 @@ public class UserCommands implements CommandExecutor {
             }
             String ops = sb.toString().trim().substring(0, sb.length() - 2);
             player.sendMessage(ops);
+        }
+        
+        //MATCH
+        if(cmd.getName().equalsIgnoreCase("match")) {
+        	player.sendMessage(ChatColor.RED + "--------------- " + ChatColor.GRAY + "Match info " + ChatColor.RED + "---------------");
+        	if(!MatchHandler.running() && !MatchHandler.played()) {
+        		player.sendMessage(ChatColor.DARK_AQUA + "No match running!");
+        	} else {
+        		player.sendMessage(ChatColor.GRAY + "Time: " + ChatColor.GREEN + TimeUtils.formatIntoHHMMSS(MatchHandler.getTime()));
+        	}
+        	player.sendMessage(ChatColor.RED + "Red: " + ChatColor.GRAY + th.count(Team.RED) + ChatColor.DARK_AQUA + " | " + ChatColor.BLUE + "Blue: " + ChatColor.GRAY + th.count(Team.BLUE) + ChatColor.DARK_AQUA + " | " + ChatColor.AQUA + "Observer: " + ChatColor.GRAY + th.count(Team.OBSERVER));
         }
         return true;
     }
