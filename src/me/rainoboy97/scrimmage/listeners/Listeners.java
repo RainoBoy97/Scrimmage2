@@ -56,12 +56,12 @@ public class Listeners implements Listener {
 	}
 
 	@EventHandler
-	public void event_tag(PlayerReceiveNameTagEvent event) {
+	public void onPlayerReceiveNameTag(PlayerReceiveNameTagEvent event) {
 		event.setTag(th.getTeamColor(th.getTeam(event.getNamedPlayer())) + event.getNamedPlayer().getName());
 	}
 
 	@EventHandler
-	public void event_join(PlayerJoinEvent event) {
+	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 
 		th.addPlayer(player, Team.OBSERVER);
@@ -70,7 +70,7 @@ public class Listeners implements Listener {
 	}
 
 	@EventHandler
-	public void event_craft(PlayerInteractEvent event) {
+	public void onPlayerInteract(PlayerInteractEvent event) {
 		if (!MatchHandler.running() || th.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 			return;
@@ -84,7 +84,7 @@ public class Listeners implements Listener {
 	}
 
 	@EventHandler
-	public void event_quit(PlayerQuitEvent event) {
+	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 
 		event.setQuitMessage(Scrimmage.getPrefix(player) + th.getTeamColor(th.getTeam(player)) + player.getName() + ChatColor.YELLOW + " left the game!");
@@ -92,7 +92,7 @@ public class Listeners implements Listener {
 	}
 
 	@EventHandler
-	public void event_kick(PlayerKickEvent event) {
+	public void onPlayerKick(PlayerKickEvent event) {
 
 	}
 
