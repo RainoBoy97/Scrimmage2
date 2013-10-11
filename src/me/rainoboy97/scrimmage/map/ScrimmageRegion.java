@@ -1,4 +1,4 @@
-package me.rainoboy97.scrimmage.map
+package me.rainoboy97.scrimmage.map;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -17,7 +17,8 @@ public class ScrimmageRegion {
 		this.secondLocation = region.getSecondaryLocation();
 		this.world = region.getWorld();
 	}
-	public ScrimageRegion(Location first, Location second){
+	
+	public ScrimmageRegion(Location first, Location second){
 		this.firstLocation = first;
 		this.secondLocation = second;
 		this.world = firstLocation.getWorld();
