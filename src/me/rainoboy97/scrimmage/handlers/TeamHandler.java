@@ -7,8 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
@@ -19,14 +17,10 @@ public class TeamHandler {
 	private org.bukkit.scoreboard.Team red;
 	private org.bukkit.scoreboard.Team blue;
 	private org.bukkit.scoreboard.Team obs;
-	private Objective obj;
 
 	public void loadTeams() {
 		sm = Bukkit.getScoreboardManager();
 		sb = sm.getNewScoreboard();
-		obj = sb.registerNewObjective("showhealth", "health");
-		obj.setDisplaySlot(DisplaySlot.BELOW_NAME);
-		obj.setDisplayName("/ 20");
 		red = sb.registerNewTeam("Red Team");
 		blue = sb.registerNewTeam("Blue Team");
 		obs = sb.registerNewTeam("Observers");

@@ -1,4 +1,4 @@
-package me.rainoboy97.events;
+package me.rainoboy97.scrimmage.events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;

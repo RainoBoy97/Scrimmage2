@@ -1,7 +1,7 @@
 package me.rainoboy97.scrimmage.commands;
 
-import me.rainoboy97.events.ScrimObsJoinEvent;
 import me.rainoboy97.scrimmage.Scrimmage;
+import me.rainoboy97.scrimmage.events.ScrimObsJoinEvent;
 import me.rainoboy97.scrimmage.handlers.MatchHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
