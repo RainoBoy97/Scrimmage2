@@ -55,6 +55,8 @@ public class Scrimmage extends JavaPlugin {
         this.regAdminCommand("end");
         this.regAdminCommand("setnext");
         this.regAdminCommand("pvp");
+        
+        th.loadTeams();
 
         for (Player p : Bukkit.getOnlinePlayers()) {
             th.addPlayer(p, Team.OBSERVER);

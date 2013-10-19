@@ -1,5 +1,6 @@
 package me.rainoboy97.scrimmage.listeners;
 
+import me.rainoboy97.events.ScrimObsJoinEvent;
 import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.handlers.MatchHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
@@ -7,6 +8,7 @@ import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
@@ -42,7 +44,6 @@ import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.world.StructureGrowEvent;
-import org.kitteh.tag.PlayerReceiveNameTagEvent;
 
 public class Listeners implements Listener {
 
@@ -54,10 +55,10 @@ public class Listeners implements Listener {
 		this.plugin = scrimmage;
 		this.th = Scrimmage.getTH();
 	}
-
+	
 	@EventHandler
-	public void onPlayerReceiveNameTag(PlayerReceiveNameTagEvent event) {
-		event.setTag(th.getTeamColor(th.getTeam(event.getNamedPlayer())) + event.getNamedPlayer().getName());
+	public void onObsJoin(ScrimObsJoinEvent e) {
+		e.getPlayer().setGameMode(GameMode.CREATIVE);
 	}
 
 	@EventHandler
@@ -67,6 +68,7 @@ public class Listeners implements Listener {
 		th.addPlayer(player, Team.OBSERVER);
 
 		event.setJoinMessage(Scrimmage.getPrefix(player) + th.getTeamColor(th.getTeam(player)) + player.getName() + ChatColor.YELLOW + " joined the game!");
+		th.loadScoreBoardPlayer(player);
 	}
 
 	@EventHandler
@@ -292,19 +294,11 @@ public class Listeners implements Listener {
 				event.setCancelled(true);
 				return;
 			}
-			if (event.getEntity() instanceof Player) {
-				Player player = (Player) event.getEntity();
-				if (th.getTeam(player) == th.getTeam(damager)) {
-					event.setCancelled(true);
-					return;
-				}
-			}
 		} else if (event.getDamager() instanceof Projectile) {
-			Player player = (Player) event.getEntity();
 			Projectile proj = (Projectile) event.getDamager();
 			if (proj.getShooter() instanceof Player) {
 				Player shooter = (Player) proj.getShooter();
-				if (th.isObserver(shooter) || th.getTeam(player) == th.getTeam(shooter)) {
+				if (th.isObserver(shooter)) {
 					event.setCancelled(true);
 					return;
 				}

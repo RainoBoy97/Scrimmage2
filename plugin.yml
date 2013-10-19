@@ -2,8 +2,7 @@ name: Scrimmage
 version: 2.0
 main: me.rainoboy97.scrimmage.Scrimmage
 author: RainoBoy97
-authors: [XX_iiShockzz_XX, hdt80bro, ShinyDialga45, bookofnathan]
-depends: [TagAPI]
+authors: [XX_iiShockzz_XX, hdt80bro, ShinyDialga45, bookofnathan, msalihov]
 commands:
   start:
     description: Start the match.
@@ -33,3 +32,6 @@ commands:
     aliases: [ops, staff]
   pvp:
     description: Toggle PVP
+  match:
+    description: Information about match
+    aliases: [matchinfo]

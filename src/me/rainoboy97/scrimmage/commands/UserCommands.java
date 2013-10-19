@@ -1,5 +1,6 @@
 package me.rainoboy97.scrimmage.commands;
 
+import me.rainoboy97.events.ScrimObsJoinEvent;
 import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.handlers.MatchHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
@@ -71,6 +72,9 @@ public class UserCommands implements CommandExecutor {
 			}
 			th.addPlayer(player, team);
 			Scrimmage.msg(player, ChatColor.GRAY + "You joined team " + th.getTeamColor(team) + StringUtils.capitalize(team.name().toLowerCase()));
+			if (team == Team.OBSERVER) {
+				Bukkit.getPluginManager().callEvent(new ScrimObsJoinEvent(player));
+			}
 
 		}
 
