@@ -7,6 +7,7 @@ import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
 import me.rainoboy97.scrimmage.listeners.Listeners;
 import me.rainoboy97.scrimmage.map.MapHandler;
+import me.rainoboy97.scrimmage.utils.FileUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -40,6 +41,7 @@ public class Scrimmage extends JavaPlugin {
     }
 
     public void onEnable() {
+    	FileUtils.clean();
         int loaded = MapHandler.loadMaps();
         this.getLogger().info("Loaded " + loaded + " maps!");
         this.regListener(new Listeners(this));
