@@ -35,5 +35,9 @@ public class ScrimMap {
 			e.printStackTrace();
 		}
 	}
+	
+	public void load() {
+		
+	}
 
 }

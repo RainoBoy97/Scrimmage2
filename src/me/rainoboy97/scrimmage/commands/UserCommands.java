@@ -1,7 +1,7 @@
 package me.rainoboy97.scrimmage.commands;
 
 import me.rainoboy97.scrimmage.Scrimmage;
-import me.rainoboy97.scrimmage.events.ScrimObsJoinEvent;
+import me.rainoboy97.scrimmage.events.ScrimObsFromTeamJoinEvent;
 import me.rainoboy97.scrimmage.events.ScrimPvpJoinEvent;
 import me.rainoboy97.scrimmage.events.ScrimTeamJoinEvent;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
@@ -50,8 +50,10 @@ public class UserCommands implements CommandExecutor {
 		}
 		// JOIN
 		if (cmd.getName().equalsIgnoreCase("join")) {
+			Team oldteam;
 			Team team;
 			boolean obs = false;
+			oldteam = th.getTeam((Player) sender);
 			if (args.length == 1) {
 				team = Team.getTeam(args[0]);
 			} else {
@@ -74,11 +76,11 @@ public class UserCommands implements CommandExecutor {
 			}
 			th.addPlayer(player, team);
 			Scrimmage.msg(player, ChatColor.GRAY + "You joined team " + th.getTeamColor(team) + StringUtils.capitalize(team.name().toLowerCase()));
-			Bukkit.getPluginManager().callEvent(new ScrimTeamJoinEvent(player, team));
+			Bukkit.getPluginManager().callEvent(new ScrimTeamJoinEvent(player, team, oldteam, th));
 			if (team == Team.OBSERVER) {
-				Bukkit.getPluginManager().callEvent(new ScrimObsJoinEvent(player));
+				Bukkit.getPluginManager().callEvent(new ScrimObsFromTeamJoinEvent(player, oldteam, th));
 			} else {
-				Bukkit.getPluginManager().callEvent(new ScrimPvpJoinEvent(player, team));
+				Bukkit.getPluginManager().callEvent(new ScrimPvpJoinEvent(player, team, th));
 			}
 
 		}

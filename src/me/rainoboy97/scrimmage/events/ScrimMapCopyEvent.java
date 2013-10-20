@@ -3,6 +3,7 @@ package me.rainoboy97.scrimmage.events;
 import java.io.File;
 
 import me.rainoboy97.scrimmage.match.ScrimMap;
+import me.rainoboy97.scrimmage.utils.FileUtils;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -42,6 +43,12 @@ public class ScrimMapCopyEvent extends Event {
 
 	public boolean getOutcome() {
 		return sc;
+	}
+	
+	public void setCancelled() {
+		if (d.exists()) {
+			FileUtils.deleteDirectory(d);
+		}
 	}
 
 	private static final HandlerList handlers = new HandlerList();

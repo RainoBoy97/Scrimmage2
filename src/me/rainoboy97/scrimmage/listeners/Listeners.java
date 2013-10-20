@@ -1,7 +1,7 @@
 package me.rainoboy97.scrimmage.listeners;
 
 import me.rainoboy97.scrimmage.Scrimmage;
-import me.rainoboy97.scrimmage.events.ScrimObsJoinEvent;
+import me.rainoboy97.scrimmage.events.ScrimObsFromTeamJoinEvent;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
 import me.rainoboy97.scrimmage.match.MatchHandler;
@@ -58,7 +58,7 @@ public class Listeners implements Listener {
 	}
 	
 	@EventHandler
-	public void onObsJoin(ScrimObsJoinEvent e) {
+	public void onObsJoin(ScrimObsFromTeamJoinEvent e) {
 		e.getPlayer().setGameMode(GameMode.CREATIVE);
 	}
 

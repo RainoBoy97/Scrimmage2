@@ -7,17 +7,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class ScrimTeamJoinEvent extends Event {
+public class ScrimObsFromTeamJoinEvent extends Event {
 
 	Player p;
-	Team t;
-	Team f;
+	Team pr;
 	TeamHandler th;
 
-	public ScrimTeamJoinEvent(Player p, Team t, Team f, TeamHandler th) {
+	public ScrimObsFromTeamJoinEvent(Player p, Team pr, TeamHandler th) {
 		this.p = p;
-		this.t = t;
-		this.f = f;
+		this.pr = pr;
 		this.th = th;
 	}
 
@@ -25,12 +23,8 @@ public class ScrimTeamJoinEvent extends Event {
 		return p;
 	}
 	
-	public Team getNewTeam() {
-		return t;
-	}
-	
 	public Team getOldTeam() {
-		return f;
+		return pr;
 	}
 	
 	public TeamHandler getTeamHandler() {
@@ -38,7 +32,7 @@ public class ScrimTeamJoinEvent extends Event {
 	}
 	
 	public void setCancelled() {
-		th.addPlayer(p, f);
+		th.addPlayer(p, pr);
 	}
 
 	private static final HandlerList handlers = new HandlerList();
@@ -50,4 +44,5 @@ public class ScrimTeamJoinEvent extends Event {
 	public static HandlerList getHandlerList() {
 		return handlers;
 	}
+
 }
