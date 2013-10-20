@@ -3,6 +3,8 @@ package me.rainoboy97.scrimmage.handlers;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.rainoboy97.scrimmage.Scrimmage;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -63,19 +65,19 @@ public class TeamHandler {
 		switch (team) {
 		case BLUE:
 			blue.addPlayer(op);
-			player.setDisplayName(ChatColor.BLUE + player.getName());
+			player.setDisplayName(Scrimmage.getPrefix(player) + ChatColor.BLUE + player.getName() + ChatColor.WHITE);
 			break;
 		case RED:
 			red.addPlayer(op);
-			player.setDisplayName(ChatColor.DARK_RED + player.getName());
+			player.setDisplayName(Scrimmage.getPrefix(player) + ChatColor.DARK_RED + player.getName() + ChatColor.WHITE);
 			break;
 		case OBSERVER:
 			obs.addPlayer(op);
-			player.setDisplayName(ChatColor.AQUA + player.getName());
+			player.setDisplayName(Scrimmage.getPrefix(player) + ChatColor.AQUA + player.getName() + ChatColor.WHITE);
 			break;
 		default:
 			obs.addPlayer(op);
-			player.setDisplayName(ChatColor.AQUA + player.getName());
+			player.setDisplayName(Scrimmage.getPrefix(player) + ChatColor.AQUA + player.getName() + ChatColor.WHITE);
 			break;
 		}
 	}

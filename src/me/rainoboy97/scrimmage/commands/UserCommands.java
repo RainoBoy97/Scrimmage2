@@ -41,7 +41,7 @@ public class UserCommands implements CommandExecutor {
 			}
 			String msg = StringUtils.join(args, " ", 0, args.length);
 			for (Player p : Bukkit.getOnlinePlayers()) {
-				p.sendMessage(ChatColor.GRAY + "[G] " + Scrimmage.getPrefix(player) + th.getTeamColor(th.getTeam(player)) + player.getDisplayName() + ChatColor.WHITE + ": " + msg);
+				p.sendMessage(ChatColor.GRAY + "[G] " + player.getDisplayName() + ChatColor.WHITE + ": " + msg);
 			}
 			Scrimmage.logChat("[G] " + Scrimmage.getPrefix(player) + player.getName() + ": " + msg);
 

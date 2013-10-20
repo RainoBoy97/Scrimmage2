@@ -33,6 +33,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -67,8 +68,32 @@ public class Listeners implements Listener {
 
 		th.addPlayer(player, Team.OBSERVER);
 
-		event.setJoinMessage(Scrimmage.getPrefix(player) + th.getTeamColor(th.getTeam(player)) + player.getName() + ChatColor.YELLOW + " joined the game!");
+		event.setJoinMessage(player.getDisplayName() + ChatColor.YELLOW + " joined the game!");
 		th.loadScoreBoardPlayer(player);
+	}
+	
+	@EventHandler
+	public void onPlayerDeath(PlayerDeathEvent e) {
+		String o_msg = e.getDeathMessage();
+		Player player = e.getEntity();
+		String name = player.getDisplayName();
+		String f_name = name;
+		if (name.contains("*")) {
+			f_name = name.replace(ChatColor.DARK_AQUA + "*", "");
+		}
+		String f_msg = o_msg.replace(player.getName() + " ", "");
+		if (player.getKiller() instanceof Player) {
+			Player kill = player.getKiller();
+			String killer = kill.getDisplayName();
+			String f_killer = killer;
+			if (killer.contains("*")) {
+				f_killer = killer.replace(ChatColor.DARK_AQUA + "*", "");
+			}
+			String ff_msg = f_msg.replace(kill.getName(), f_killer);
+			e.setDeathMessage(f_name + ChatColor.GRAY + " " + ff_msg);
+		} else {
+			e.setDeathMessage(f_name + ChatColor.GRAY + " " + f_msg);
+		}
 	}
 
 	@EventHandler
@@ -89,7 +114,7 @@ public class Listeners implements Listener {
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 
-		event.setQuitMessage(Scrimmage.getPrefix(player) + th.getTeamColor(th.getTeam(player)) + player.getName() + ChatColor.YELLOW + " left the game!");
+		event.setQuitMessage(player.getDisplayName() + ChatColor.YELLOW + " left the game!");
 		th.removePlayer(player);
 	}
 
@@ -103,7 +128,7 @@ public class Listeners implements Listener {
 		Player player = event.getPlayer();
 		for (String p : th.getPlayersOnTeam(th.getTeam(player))) {
 			Player t = Bukkit.getPlayerExact(p);
-			t.sendMessage(ChatColor.GRAY + "[T] " + Scrimmage.getPrefix(player) + th.getTeamColor(th.getTeam(player)) + player.getName() + ChatColor.WHITE + ": " + event.getMessage());
+			t.sendMessage(ChatColor.GRAY + "[T] " + player.getDisplayName() + ChatColor.WHITE + ": " + event.getMessage());
 		}
 		Scrimmage.logChat("[T] " + Scrimmage.getPrefix(player) + player.getName() + ": " + event.getMessage());
 		event.setCancelled(true);
