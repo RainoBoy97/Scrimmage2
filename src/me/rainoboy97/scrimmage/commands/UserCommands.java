@@ -2,6 +2,8 @@ package me.rainoboy97.scrimmage.commands;
 
 import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.events.ScrimObsJoinEvent;
+import me.rainoboy97.scrimmage.events.ScrimPvpJoinEvent;
+import me.rainoboy97.scrimmage.events.ScrimTeamJoinEvent;
 import me.rainoboy97.scrimmage.handlers.MatchHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
@@ -72,8 +74,11 @@ public class UserCommands implements CommandExecutor {
 			}
 			th.addPlayer(player, team);
 			Scrimmage.msg(player, ChatColor.GRAY + "You joined team " + th.getTeamColor(team) + StringUtils.capitalize(team.name().toLowerCase()));
+			Bukkit.getPluginManager().callEvent(new ScrimTeamJoinEvent(player, team));
 			if (team == Team.OBSERVER) {
 				Bukkit.getPluginManager().callEvent(new ScrimObsJoinEvent(player));
+			} else {
+				Bukkit.getPluginManager().callEvent(new ScrimPvpJoinEvent(player, team));
 			}
 
 		}
