@@ -1,4 +1,4 @@
-package me.rainoboy97.scrimmage.map;
+package me.rainoboy97.scrimmage.match;
 
 import lombok.Getter;
 import lombok.Setter;

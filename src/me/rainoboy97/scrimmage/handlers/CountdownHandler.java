@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.rainoboy97.scrimmage.Scrimmage;
-import me.rainoboy97.scrimmage.map.MapHandler;
-import me.rainoboy97.scrimmage.map.SMap;
+import me.rainoboy97.scrimmage.match.MapHandler;
+import me.rainoboy97.scrimmage.match.MatchHandler;
+import me.rainoboy97.scrimmage.match.SMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

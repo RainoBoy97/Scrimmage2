@@ -2,9 +2,9 @@ package me.rainoboy97.scrimmage.commands;
 
 import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.handlers.CountdownHandler;
-import me.rainoboy97.scrimmage.handlers.MatchHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
-import me.rainoboy97.scrimmage.map.MapHandler;
+import me.rainoboy97.scrimmage.match.MapHandler;
+import me.rainoboy97.scrimmage.match.MatchHandler;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;

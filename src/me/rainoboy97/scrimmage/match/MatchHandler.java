@@ -1,6 +1,7 @@
-package me.rainoboy97.scrimmage.handlers;
+package me.rainoboy97.scrimmage.match;
 
 import me.rainoboy97.scrimmage.Scrimmage;
+import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
 import me.rainoboy97.scrimmage.utils.PlayerUtils;
 

@@ -1,4 +1,4 @@
-package me.rainoboy97.scrimmage.map;
+package me.rainoboy97.scrimmage.match;
 
 import java.io.File;
 import java.util.ArrayList;

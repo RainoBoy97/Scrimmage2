@@ -4,9 +4,9 @@ import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.events.ScrimObsJoinEvent;
 import me.rainoboy97.scrimmage.events.ScrimPvpJoinEvent;
 import me.rainoboy97.scrimmage.events.ScrimTeamJoinEvent;
-import me.rainoboy97.scrimmage.handlers.MatchHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
+import me.rainoboy97.scrimmage.match.MatchHandler;
 import me.rainoboy97.scrimmage.utils.TimeUtils;
 
 import org.apache.commons.lang.StringUtils;

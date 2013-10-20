@@ -1,4 +1,4 @@
-package me.rainoboy97.scrimmage.map;
+package me.rainoboy97.scrimmage.utils;
 
 import org.bukkit.Location;
 import org.bukkit.World;
