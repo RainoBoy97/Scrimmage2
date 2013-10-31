@@ -5,7 +5,6 @@ import me.rainoboy97.scrimmage.commands.UserCommands;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
 import me.rainoboy97.scrimmage.listeners.Listeners;
-import me.rainoboy97.scrimmage.match.MapHandler;
 import me.rainoboy97.scrimmage.match.MatchHandler;
 import me.rainoboy97.scrimmage.utils.FileUtils;
 
@@ -18,83 +17,86 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Scrimmage extends JavaPlugin {
 
-    private static Scrimmage i;
-    private static TeamHandler th;
-    private static MatchHandler mh;
-    
-    public static boolean pvp = true;
+	private static Scrimmage i;
+	private static TeamHandler th;
+	private static MatchHandler mh;
 
-    public Scrimmage() {
-        Scrimmage.i = this;
-        Scrimmage.th = new TeamHandler();
-        Scrimmage.mh = new MatchHandler();
-    }
+	public static boolean pvp = true;
 
-    public static Scrimmage get() {
-        return i;
-    }
+	public Scrimmage() {
+		Scrimmage.i = this;
+		Scrimmage.th = new TeamHandler();
+		Scrimmage.mh = new MatchHandler();
+	}
 
-    public void onDisable() {
-        if (MatchHandler.running()) {
-            MatchHandler.stop(null);
-        }
-    }
+	public static Scrimmage get() {
+		return i;
+	}
 
-    public void onEnable() {
-    	FileUtils.clean();
-        int loaded = MapHandler.loadMaps();
-        this.getLogger().info("Loaded " + loaded + " maps!");
-        this.regListener(new Listeners(this));
+	@Override
+	public void onDisable() {
+		if (MatchHandler.running()) {
+			MatchHandler.stop(null);
+		}
+	}
 
-        this.regUserCommand("g");
-        this.regUserCommand("join");
-        this.regUserCommand("operators");
-        this.regUserCommand("match");
-        this.regAdminCommand("a");
-        this.regAdminCommand("start");
-        this.regAdminCommand("cycle");
-        this.regAdminCommand("cancel");
-        this.regAdminCommand("end");
-        this.regAdminCommand("setnext");
-        this.regAdminCommand("pvp");
-        
-        th.loadTeams();
+	@Override
+	public void onEnable() {
+		FileUtils.clean();
+		int loaded = MapHandler.loadMaps();
+		getLogger().info("Loaded " + loaded + " maps!");
+		regListener(new Listeners(this));
 
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            th.addPlayer(p, Team.OBSERVER);
-        }
-    }
+		regUserCommand("g");
+		regUserCommand("join");
+		regUserCommand("operators");
+		regUserCommand("match");
+		regAdminCommand("a");
+		regAdminCommand("start");
+		regAdminCommand("cycle");
+		regAdminCommand("cancel");
+		regAdminCommand("end");
+		regAdminCommand("setnext");
+		regAdminCommand("pvp");
 
-    private void regListener(Listener listener) {
-        this.getServer().getPluginManager().registerEvents(listener, this);
-    }
+		th.loadTeams();
 
-    private void regAdminCommand(String cmd) {
-        this.getCommand(cmd).setExecutor(new AdminCommands());
-    }
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			th.addPlayer(p, Team.OBSERVER);
+		}
+	}
 
-    private void regUserCommand(String cmd) {
-        this.getCommand(cmd).setExecutor(new UserCommands());
-    }
+	private void regListener(Listener listener) {
+		getServer().getPluginManager().registerEvents(listener, this);
+	}
 
-    public static void msg(CommandSender sender, String message) {
-        sender.sendMessage(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "> " + message);
-    }
+	private void regAdminCommand(String cmd) {
+		getCommand(cmd).setExecutor(new AdminCommands());
+	}
 
-    public static String getPrefix(Player player) {
-        return player.isOp() ? ChatColor.DARK_AQUA + "*" : "";
-    }
+	private void regUserCommand(String cmd) {
+		getCommand(cmd).setExecutor(new UserCommands());
+	}
 
-    public static void logChat(String message) {
-        Bukkit.getConsoleSender().sendMessage(ChatColor.stripColor(message));
-    }
+	public static void msg(CommandSender sender, String message) {
+		sender.sendMessage(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "> "
+				+ message);
+	}
 
-    public static TeamHandler getTH() {
-        return Scrimmage.th;
-    }
+	public static String getPrefix(Player player) {
+		return player.isOp() ? ChatColor.DARK_AQUA + "*" : "";
+	}
 
-    public static MatchHandler getMH() {
-        return Scrimmage.mh;
-    }
+	public static void logChat(String message) {
+		Bukkit.getConsoleSender().sendMessage(ChatColor.stripColor(message));
+	}
+
+	public static TeamHandler getTH() {
+		return Scrimmage.th;
+	}
+
+	public static MatchHandler getMH() {
+		return Scrimmage.mh;
+	}
 
 }

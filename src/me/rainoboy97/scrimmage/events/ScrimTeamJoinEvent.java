@@ -24,25 +24,26 @@ public class ScrimTeamJoinEvent extends Event {
 	public Player getPlayer() {
 		return p;
 	}
-	
+
 	public Team getNewTeam() {
 		return t;
 	}
-	
+
 	public Team getOldTeam() {
 		return f;
 	}
-	
+
 	public TeamHandler getTeamHandler() {
 		return th;
 	}
-	
+
 	public void setCancelled() {
 		th.addPlayer(p, f);
 	}
 
 	private static final HandlerList handlers = new HandlerList();
 
+	@Override
 	public HandlerList getHandlers() {
 		return handlers;
 	}

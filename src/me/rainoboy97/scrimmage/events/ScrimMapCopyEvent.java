@@ -44,7 +44,7 @@ public class ScrimMapCopyEvent extends Event {
 	public boolean getOutcome() {
 		return sc;
 	}
-	
+
 	public void setCancelled() {
 		if (d.exists()) {
 			FileUtils.deleteDirectory(d);
@@ -53,6 +53,7 @@ public class ScrimMapCopyEvent extends Event {
 
 	private static final HandlerList handlers = new HandlerList();
 
+	@Override
 	public HandlerList getHandlers() {
 		return handlers;
 	}

@@ -22,21 +22,22 @@ public class ScrimObsFromTeamJoinEvent extends Event {
 	public Player getPlayer() {
 		return p;
 	}
-	
+
 	public Team getOldTeam() {
 		return pr;
 	}
-	
+
 	public TeamHandler getTeamHandler() {
 		return th;
 	}
-	
+
 	public void setCancelled() {
 		th.addPlayer(p, pr);
 	}
 
 	private static final HandlerList handlers = new HandlerList();
 
+	@Override
 	public HandlerList getHandlers() {
 		return handlers;
 	}
