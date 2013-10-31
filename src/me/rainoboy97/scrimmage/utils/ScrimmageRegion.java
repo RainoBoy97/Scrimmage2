@@ -9,23 +9,22 @@ public class ScrimmageRegion {
 	private Location secondLocation;
 	private World world;
 
-	public ScrimmageRegion() {
+	public ScrimmageRegion(){
 
 	}
-
-	public ScrimmageRegion(ScrimmageRegion region) {
-		firstLocation = region.getPrimaryLocation();
-		secondLocation = region.getSecondaryLocation();
-		world = region.getWorld();
+	public ScrimmageRegion(ScrimmageRegion region){
+		this.firstLocation = region.getPrimaryLocation();
+		this.secondLocation = region.getSecondaryLocation();
+		this.world = region.getWorld();
+	}
+	
+	public ScrimmageRegion(Location first, Location second){
+		this.firstLocation = first;
+		this.secondLocation = second;
+		this.world = firstLocation.getWorld();
 	}
 
-	public ScrimmageRegion(Location first, Location second) {
-		firstLocation = first;
-		secondLocation = second;
-		world = firstLocation.getWorld();
-	}
-
-	public boolean isWithinRegion(Location l) {
+	public boolean isWithinRegion(Location l){
 		int x1 = firstLocation.getBlockX();
 		int x2 = secondLocation.getBlockX();
 
@@ -38,15 +37,12 @@ public class ScrimmageRegion {
 		int lx = l.getBlockX();
 		int ly = l.getBlockY();
 		int lz = l.getBlockZ();
-		if (lx >= Math.min(x1, x2) & lx <= Math.max(x1, x2)
-				& ly >= Math.min(y1, y2) & ly <= Math.max(y1, y2)
-				& lz >= Math.min(z1, z2) & lz <= Math.max(z1, z2))
-			return true;
+		if (lx >= Math.min(x1, x2) & lx <= Math.max(x1, x2) & ly >= Math.min(y1, y2) & ly <= Math.max(y1, y2) & lz >= Math.min(z1, z2) & 
+				lz <= Math.max(z1, z2)) return true;
 
 		return false;
 	}
-
-	public boolean isWithinRegionIgnoreY(Location l) {
+	public boolean isWithinRegionIgnoreY(Location l){
 		int x1 = firstLocation.getBlockX();
 		int x2 = secondLocation.getBlockX();
 
@@ -56,13 +52,10 @@ public class ScrimmageRegion {
 		int lx = l.getBlockX();
 		int lz = l.getBlockZ();
 
-		if (lx >= Math.min(x1, x2) & lx <= Math.max(x1, x2)
-				& lz >= Math.min(z1, z2) & lz <= Math.max(z1, z2))
-			return true;
+		if (lx >= Math.min(x1, x2) & lx <= Math.max(x1, x2) & lz >= Math.min(z1, z2) & 	lz <= Math.max(z1, z2)) return true;
 		return false;
 	}
-
-	public boolean isWithinRegionAboveY(Location l) {
+	public boolean isWithinRegionAboveY(Location l){
 		int x1 = firstLocation.getBlockX();
 		int x2 = secondLocation.getBlockX();
 
@@ -75,63 +68,44 @@ public class ScrimmageRegion {
 		int lx = l.getBlockX();
 		int ly = l.getBlockY();
 		int lz = l.getBlockZ();
-		if (lx >= Math.min(x1, x2) & lx <= Math.max(x1, x2)
-				& ly >= Math.min(y1, y2) & lz >= Math.min(z1, z2)
-				& lz <= Math.max(z1, z2))
-			return true;
+		if (lx >= Math.min(x1, x2) & lx <= Math.max(x1, x2) & ly >= Math.min(y1, y2) & lz >= Math.min(z1, z2) & 
+				lz <= Math.max(z1, z2)) return true;
 
 		return false;
 	}
-
-	public int calculteVolume() {
+	public int calculteVolume(){
 		return getWidth() * getHeight() * getDepth();
 	}
-
-	public Location calculateCenter() {
-		int x = Math.min(firstLocation.getBlockX(), secondLocation.getBlockX())
-				+ getWidth();
-		int y = Math.min(firstLocation.getBlockY(), secondLocation.getBlockY())
-				+ getHeight();
-		int z = Math.min(firstLocation.getBlockZ(), secondLocation.getBlockZ())
-				+ getDepth();
+	public Location calculateCenter(){
+		int x = Math.min(firstLocation.getBlockX(), secondLocation.getBlockX()) + getWidth();
+		int y = Math.min(firstLocation.getBlockY(), secondLocation.getBlockY()) + getHeight();
+		int z = Math.min(firstLocation.getBlockZ(), secondLocation.getBlockZ()) + getDepth();
 		return new Location(world, x, y, z);
 	}
-
-	public int getWidth() {
+	public int getWidth(){
 		return Math.abs(firstLocation.getBlockX() - secondLocation.getBlockX());
 	}
-
-	public int getDepth() {
+	public int getDepth(){
 		return Math.abs(firstLocation.getBlockZ() - secondLocation.getBlockZ());
 	}
-
-	public int getHeight() {
+	public int getHeight(){
 		return Math.abs(firstLocation.getBlockY() - secondLocation.getBlockY());
 	}
-
-	public World getWorld() {
-		return world;
+	public World getWorld(){
+		return this.world;
 	}
-
-	public void setPrimaryLocation(Location loc1) {
-		firstLocation = loc1;
-		if (world == null) {
-			world = loc1.getWorld();
-		}
+	public void setPrimaryLocation(Location loc1){
+		this.firstLocation = loc1;
+		if (this.world == null) this.world = loc1.getWorld();
 	}
-
-	public void setSecondaryLocation(Location loc2) {
-		secondLocation = loc2;
-		if (world == null) {
-			world = loc2.getWorld();
-		}
+	public void setSecondaryLocation(Location loc2){
+		this.secondLocation = loc2;
+		if (this.world == null) this.world = loc2.getWorld();
 	}
-
-	public Location getPrimaryLocation() {
-		return firstLocation;
+	public Location getPrimaryLocation(){
+		return this.firstLocation;
 	}
-
-	public Location getSecondaryLocation() {
-		return secondLocation;
+	public Location getSecondaryLocation(){
+		return this.secondLocation;
 	}
 }

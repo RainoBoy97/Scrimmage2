@@ -49,14 +49,14 @@ import org.bukkit.event.world.StructureGrowEvent;
 public class Listeners implements Listener {
 
 	@SuppressWarnings("unused")
-	private final Scrimmage plugin;
-	private final TeamHandler th;
+	private Scrimmage	plugin;
+	private TeamHandler	th;
 
 	public Listeners(Scrimmage scrimmage) {
-		plugin = scrimmage;
-		th = Scrimmage.getTH();
+		this.plugin = scrimmage;
+		this.th = Scrimmage.getTH();
 	}
-
+	
 	@EventHandler
 	public void onObsJoin(ScrimObsFromTeamJoinEvent e) {
 		e.getPlayer().setGameMode(GameMode.CREATIVE);
@@ -68,11 +68,10 @@ public class Listeners implements Listener {
 
 		th.addPlayer(player, Team.OBSERVER);
 
-		event.setJoinMessage(player.getDisplayName() + ChatColor.YELLOW
-				+ " joined the game!");
+		event.setJoinMessage(player.getDisplayName() + ChatColor.YELLOW + " joined the game!");
 		th.loadScoreBoardPlayer(player);
 	}
-
+	
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent e) {
 		String o_msg = e.getDeathMessage();
@@ -115,8 +114,7 @@ public class Listeners implements Listener {
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 
-		event.setQuitMessage(player.getDisplayName() + ChatColor.YELLOW
-				+ " left the game!");
+		event.setQuitMessage(player.getDisplayName() + ChatColor.YELLOW + " left the game!");
 		th.removePlayer(player);
 	}
 
@@ -130,11 +128,9 @@ public class Listeners implements Listener {
 		Player player = event.getPlayer();
 		for (String p : th.getPlayersOnTeam(th.getTeam(player))) {
 			Player t = Bukkit.getPlayerExact(p);
-			t.sendMessage(ChatColor.GRAY + "[T] " + player.getDisplayName()
-					+ ChatColor.WHITE + ": " + event.getMessage());
+			t.sendMessage(ChatColor.GRAY + "[T] " + player.getDisplayName() + ChatColor.WHITE + ": " + event.getMessage());
 		}
-		Scrimmage.logChat("[T] " + Scrimmage.getPrefix(player)
-				+ player.getName() + ": " + event.getMessage());
+		Scrimmage.logChat("[T] " + Scrimmage.getPrefix(player) + player.getName() + ": " + event.getMessage());
 		event.setCancelled(true);
 	}
 

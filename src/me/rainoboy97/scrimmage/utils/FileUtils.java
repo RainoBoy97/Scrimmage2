@@ -17,16 +17,16 @@ public class FileUtils {
 		if (directory.exists()) {
 			File[] files = directory.listFiles();
 			if (null != files) {
-				for (File file : files) {
-					if (file.isDirectory()) {
-						deleteDirectory(file);
+				for (int i = 0; i < files.length; i++) {
+					if (files[i].isDirectory()) {
+						deleteDirectory(files[i]);
 					} else {
-						file.delete();
+						files[i].delete();
 					}
 				}
 			}
 		}
-		return directory.delete();
+		return (directory.delete());
 	}
 
 	public static void clean() {

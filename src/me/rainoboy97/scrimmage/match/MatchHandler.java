@@ -13,14 +13,14 @@ import org.bukkit.entity.Player;
 
 public class MatchHandler {
 
-	private static TeamHandler th;
+	private static TeamHandler	th;
 
 	public MatchHandler() {
 		MatchHandler.th = Scrimmage.getTH();
 	}
 
-	private static MatchState state = MatchState.PREGAME;
-
+	private static MatchState	state	= MatchState.PREGAME;
+	
 	private static long starttime = 0;
 	private static long endtime = 0;
 
@@ -33,8 +33,7 @@ public class MatchHandler {
 	}
 
 	public static boolean played() {
-		return MatchHandler.state == MatchState.ENDED
-				|| MatchHandler.state == MatchState.CYCLING;
+		return MatchHandler.state == MatchState.ENDED || MatchHandler.state == MatchState.CYCLING;
 	}
 
 	public static void start() {
@@ -63,17 +62,10 @@ public class MatchHandler {
 		setState(MatchState.ENDED);
 		endtime = System.currentTimeMillis();
 		if (winner == null) {
-			Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "##### "
-					+ ChatColor.GREEN + "The match was forced to end!"
-					+ ChatColor.DARK_GRAY + " #####");
+			Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "##### " + ChatColor.GREEN + "The match was forced to end!" + ChatColor.DARK_GRAY + " #####");
 		} else {
 			String winnerName = th.getTeamName(winner);
-			Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "##### "
-					+ ChatColor.GREEN + "The match ended! "
-					+ ChatColor.valueOf(winnerName)
-					+ StringUtils.capitalize(winnerName.toLowerCase())
-					+ ChatColor.GREEN + " has won the game!"
-					+ ChatColor.DARK_GRAY + " #####");
+			Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "##### " + ChatColor.GREEN + "The match ended! " + ChatColor.valueOf(winnerName) + StringUtils.capitalize(winnerName.toLowerCase()) + ChatColor.GREEN + " has won the game!" + ChatColor.DARK_GRAY + " #####");
 		}
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			PlayerUtils.clear(player);
@@ -84,17 +76,14 @@ public class MatchHandler {
 			}
 		}
 	}
-
+	
 	public static long getTime() {
 		System.out.println(System.currentTimeMillis());
 		System.out.println(starttime);
 		System.out.println(endtime);
-		if (running())
-			return System.currentTimeMillis() - starttime;
-		else if (played())
-			return endtime - starttime;
-		else
-			return 0;
+		if(running()) return System.currentTimeMillis() - starttime;
+		else if(played()) return endtime - starttime;
+		else return 0;
 	}
 
 	public enum MatchState {

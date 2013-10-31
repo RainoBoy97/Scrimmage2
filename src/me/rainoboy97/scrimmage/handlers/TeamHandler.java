@@ -22,7 +22,6 @@ public class TeamHandler {
 	private org.bukkit.scoreboard.Team blue;
 	private org.bukkit.scoreboard.Team obs;
 	private Objective obj;
-
 	public void loadTeams() {
 		sm = Bukkit.getScoreboardManager();
 		sb = sm.getNewScoreboard();
@@ -49,19 +48,20 @@ public class TeamHandler {
 			p.setScoreboard(sb);
 		}
 	}
-
+	
 	public void loadScoreBoardPlayer(Player p) {
 		p.setScoreboard(sb);
 	}
 
 	public Team getTeam(Player player) {
 		OfflinePlayer op = Bukkit.getOfflinePlayer(player.getName());
-		if (red.getPlayers().contains(op))
+		if (red.getPlayers().contains(op)) {
 			return Team.RED;
-		else if (blue.getPlayers().contains(op))
+		} else if (blue.getPlayers().contains(op)) {
 			return Team.BLUE;
-		else
+		} else {
 			return Team.OBSERVER;
+		}
 	}
 
 	public void addPlayer(Player player, Team team) {
@@ -70,23 +70,19 @@ public class TeamHandler {
 		switch (team) {
 		case BLUE:
 			blue.addPlayer(op);
-			player.setDisplayName(Scrimmage.getPrefix(player) + ChatColor.BLUE
-					+ player.getName() + ChatColor.WHITE);
+			player.setDisplayName(Scrimmage.getPrefix(player) + ChatColor.BLUE + player.getName() + ChatColor.WHITE);
 			break;
 		case RED:
 			red.addPlayer(op);
-			player.setDisplayName(Scrimmage.getPrefix(player)
-					+ ChatColor.DARK_RED + player.getName() + ChatColor.WHITE);
+			player.setDisplayName(Scrimmage.getPrefix(player) + ChatColor.DARK_RED + player.getName() + ChatColor.WHITE);
 			break;
 		case OBSERVER:
 			obs.addPlayer(op);
-			player.setDisplayName(Scrimmage.getPrefix(player) + ChatColor.AQUA
-					+ player.getName() + ChatColor.WHITE);
+			player.setDisplayName(Scrimmage.getPrefix(player) + ChatColor.AQUA + player.getName() + ChatColor.WHITE);
 			break;
 		default:
 			obs.addPlayer(op);
-			player.setDisplayName(Scrimmage.getPrefix(player) + ChatColor.AQUA
-					+ player.getName() + ChatColor.WHITE);
+			player.setDisplayName(Scrimmage.getPrefix(player) + ChatColor.AQUA + player.getName() + ChatColor.WHITE);
 			break;
 		}
 	}
@@ -103,8 +99,9 @@ public class TeamHandler {
 	}
 
 	public boolean isJoined(Player player) {
-		if (getTeam(player) == Team.RED || getTeam(player) == Team.BLUE)
+		if (getTeam(player) == Team.RED || getTeam(player) == Team.BLUE) {
 			return true;
+		}
 		return false;
 	}
 
@@ -172,7 +169,7 @@ public class TeamHandler {
 	public enum Team {
 		RED("Red Team", ChatColor.DARK_RED), BLUE("Red Team", ChatColor.BLUE), OBSERVER(
 				"Observers", ChatColor.AQUA);
-		private final ChatColor color;
+		private ChatColor color;
 
 		Team(String name, ChatColor color) {
 			this.color = color;

@@ -6,36 +6,22 @@ import java.io.IOException;
 import me.rainoboy97.scrimmage.ScrimLogger;
 import me.rainoboy97.scrimmage.events.ScrimMapCopyEvent;
 import me.rainoboy97.scrimmage.utils.FileUtils;
-import me.rainoboy97.scrimmage.utils.LocationUtils;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 public class ScrimMap {
 
+	int folderid;
 	String name;
 	File mapdir;
 
-	String stringname;
-	FileConfiguration yml;
-	Location obs_spawn;
-	Location red_spawn;
-	Location blue_spawn;
-	World mapworld;
-	Location play1;
-	Location play2;
-
-	public ScrimMap(String filename) {
+	public ScrimMap(int fid, String filename) {
+		folderid = fid;
 		name = filename;
 		mapdir = new File(Bukkit.getWorldContainer() + "\\map_" + filename);
-		yml = YamlConfiguration.loadConfiguration(new File(Bukkit.getWorldContainer() + "\\map_" + filename + "\\map.yml"));
-		obs_spawn = LocationUtils.stringToLoc(yml, world)
 	}
 
-	public void prepare(int folderid) {
+	public void prepare() {
 		File findir = new File(Bukkit.getWorldContainer() + "\\match-"
 				+ folderid);
 		try {
@@ -48,11 +34,10 @@ public class ScrimMap {
 					new ScrimMapCopyEvent(this, mapdir, findir, name, false));
 			e.printStackTrace();
 		}
-		mapworld = Bukkit.getWorld("map_" + name);
 	}
-
+	
 	public void load() {
-		Bukkit.getServer().getWorlds().add(mapworld);
+		
 	}
 
 }
