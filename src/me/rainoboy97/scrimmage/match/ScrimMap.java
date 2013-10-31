@@ -25,8 +25,7 @@ public class ScrimMap {
 	Location red_spawn;
 	Location blue_spawn;
 	World mapworld;
-	Location play1;
-	Location play2;
+	Location[] playable;
 
 	public ScrimMap(String filename) {
 		name = filename;
