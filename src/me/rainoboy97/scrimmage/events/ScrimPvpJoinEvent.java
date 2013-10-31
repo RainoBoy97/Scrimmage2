@@ -22,21 +22,22 @@ public class ScrimPvpJoinEvent extends Event {
 	public Player getPlayer() {
 		return p;
 	}
-	
+
 	public Team getTeam() {
 		return t;
 	}
-	
+
 	public TeamHandler getTeamHandler() {
 		return th;
 	}
-	
+
 	public void setCancelled() {
 		th.addPlayer(p, Team.OBSERVER);
 	}
 
 	private static final HandlerList handlers = new HandlerList();
 
+	@Override
 	public HandlerList getHandlers() {
 		return handlers;
 	}
