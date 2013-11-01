@@ -5,7 +5,6 @@ import me.rainoboy97.scrimmage.commands.UserCommands;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
 import me.rainoboy97.scrimmage.listeners.Listeners;
-import me.rainoboy97.scrimmage.match.MatchHandler;
 import me.rainoboy97.scrimmage.utils.FileUtils;
 
 import org.bukkit.Bukkit;
