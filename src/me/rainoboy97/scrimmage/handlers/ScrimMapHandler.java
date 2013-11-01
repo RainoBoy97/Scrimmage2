@@ -12,7 +12,7 @@ import org.bukkit.Bukkit;
 public final class ScrimMapHandler {
 
 	private static Map<String, ScrimMap> maps = new HashMap<String, ScrimMap>();
-	static Integer mapamount = maps.size();
+	static Integer mapamount;
 
 	public static void add(ScrimMap sm) {
 		maps.put(sm.getDirName(), sm);
@@ -41,6 +41,8 @@ public final class ScrimMapHandler {
 				}
 			}
 		}
+		mapamount = maps.size();
 		ScrimLogger.info("Finished loading " + mapamount + " maps!");
 	}
+
 }

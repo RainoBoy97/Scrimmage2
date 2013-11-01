@@ -2,6 +2,7 @@ package me.rainoboy97.scrimmage.listeners;
 
 import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.events.ScrimObsFromTeamJoinEvent;
+import me.rainoboy97.scrimmage.handlers.ScrimMatchHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
 
@@ -94,7 +95,7 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		if (!MatchHandler.running()
+		if (!ScrimMatchHandler.isRunning()
 				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 			return;
@@ -123,7 +124,7 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void event_interact(PlayerInteractEvent event) {
-		if (!MatchHandler.running()
+		if (!ScrimMatchHandler.isRunning()
 				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 			return;
@@ -138,7 +139,7 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void event_interactentity(PlayerInteractEntityEvent event) {
-		if (!MatchHandler.running()
+		if (!ScrimMatchHandler.isRunning()
 				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 		}
@@ -146,7 +147,7 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void event_itemdrop(PlayerDropItemEvent event) {
-		if (!MatchHandler.running()
+		if (!ScrimMatchHandler.isRunning()
 				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.getItemDrop().remove();
 		}
@@ -154,7 +155,7 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void event_itemdrop(PlayerPickupItemEvent event) {
-		if (!MatchHandler.running()
+		if (!ScrimMatchHandler.isRunning()
 				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 		}
@@ -162,7 +163,7 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void event_break(BlockBreakEvent event) {
-		if (!MatchHandler.running()
+		if (!ScrimMatchHandler.isRunning()
 				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 		}
@@ -170,7 +171,7 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void event_place(BlockPlaceEvent event) {
-		if (!MatchHandler.running()
+		if (!ScrimMatchHandler.isRunning()
 				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 		}
@@ -178,91 +179,91 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void event_fromto(BlockFromToEvent event) {
-		if (!MatchHandler.running()) {
+		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_form(BlockFormEvent event) {
-		if (!MatchHandler.running()) {
+		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_physics(BlockPhysicsEvent event) {
-		if (!MatchHandler.running()) {
+		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_fade(BlockFadeEvent event) {
-		if (!MatchHandler.running()) {
+		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_decay(LeavesDecayEvent event) {
-		if (!MatchHandler.running()) {
+		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_burn(BlockBurnEvent event) {
-		if (!MatchHandler.running()) {
+		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_grow(BlockGrowEvent event) {
-		if (!MatchHandler.running()) {
+		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_damage(BlockDamageEvent event) {
-		if (!MatchHandler.running()) {
+		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_ignite(BlockIgniteEvent event) {
-		if (!MatchHandler.running()) {
+		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_spread(BlockSpreadEvent event) {
-		if (!MatchHandler.running()) {
+		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_entityform(EntityBlockFormEvent event) {
-		if (!MatchHandler.running()) {
+		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_grow(StructureGrowEvent event) {
-		if (!MatchHandler.running()) {
+		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_explode(EntityExplodeEvent event) {
-		if (!MatchHandler.running()) {
+		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
@@ -281,14 +282,15 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void event_entityspawn(CreatureSpawnEvent event) {
-		if (!MatchHandler.running() || event.getEntity() instanceof Monster) {
+		if (!ScrimMatchHandler.isRunning()
+				|| event.getEntity() instanceof Monster) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_shootbow(EntityShootBowEvent event) {
-		if (!MatchHandler.running()) {
+		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 			return;
 		}
@@ -302,7 +304,7 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void event_damage(EntityDamageByEntityEvent event) {
-		if (!MatchHandler.running() || !Scrimmage.pvp) {
+		if (!ScrimMatchHandler.isRunning() || !Scrimmage.pvp) {
 			event.setCancelled(true);
 			return;
 		}
