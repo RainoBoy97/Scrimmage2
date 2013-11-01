@@ -4,9 +4,7 @@ import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.events.ScrimObsFromTeamJoinEvent;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
-import me.rainoboy97.scrimmage.match.MatchHandler;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -34,7 +32,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -123,19 +120,6 @@ public class Listeners implements Listener {
 	@EventHandler
 	public void onPlayerKick(PlayerKickEvent event) {
 
-	}
-
-	@EventHandler
-	public void event_asynchat(AsyncPlayerChatEvent event) {
-		Player player = event.getPlayer();
-		for (String p : th.getPlayersOnTeam(th.getTeam(player))) {
-			Player t = Bukkit.getPlayerExact(p);
-			t.sendMessage(ChatColor.GRAY + "[T] " + player.getDisplayName()
-					+ ChatColor.WHITE + ": " + event.getMessage());
-		}
-		Scrimmage.logChat("[T] " + Scrimmage.getPrefix(player)
-				+ player.getName() + ": " + event.getMessage());
-		event.setCancelled(true);
 	}
 
 	@EventHandler

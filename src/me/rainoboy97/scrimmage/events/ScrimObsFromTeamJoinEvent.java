@@ -32,7 +32,7 @@ public class ScrimObsFromTeamJoinEvent extends Event {
 	}
 
 	public void setCancelled() {
-		th.addPlayer(p, pr);
+		TeamHandler.addPlayer(p, pr);
 	}
 
 	private static final HandlerList handlers = new HandlerList();

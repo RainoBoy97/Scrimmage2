@@ -16,14 +16,14 @@ import org.bukkit.scoreboard.ScoreboardManager;
 
 public class TeamHandler {
 
-	private ScoreboardManager sm;
-	private Scoreboard sb;
-	private org.bukkit.scoreboard.Team red;
-	private org.bukkit.scoreboard.Team blue;
-	private org.bukkit.scoreboard.Team obs;
-	private Objective obj;
+	static ScoreboardManager sm;
+	static Scoreboard sb;
+	static org.bukkit.scoreboard.Team red;
+	static org.bukkit.scoreboard.Team blue;
+	static org.bukkit.scoreboard.Team obs;
+	static Objective obj;
 
-	public void loadTeams() {
+	public static void loadTeams() {
 		sm = Bukkit.getScoreboardManager();
 		sb = sm.getNewScoreboard();
 		obj = sb.registerNewObjective("playerhealth", "health");
@@ -50,11 +50,11 @@ public class TeamHandler {
 		}
 	}
 
-	public void loadScoreBoardPlayer(Player p) {
+	public static void loadScoreBoardPlayer(Player p) {
 		p.setScoreboard(sb);
 	}
 
-	public Team getTeam(Player player) {
+	public static Team getTeam(Player player) {
 		OfflinePlayer op = Bukkit.getOfflinePlayer(player.getName());
 		if (red.getPlayers().contains(op))
 			return Team.RED;
@@ -64,7 +64,7 @@ public class TeamHandler {
 			return Team.OBSERVER;
 	}
 
-	public void addPlayer(Player player, Team team) {
+	public static void addPlayer(Player player, Team team) {
 		OfflinePlayer op = Bukkit.getOfflinePlayer(player.getName());
 		removePlayer(player);
 		switch (team) {
@@ -91,7 +91,7 @@ public class TeamHandler {
 		}
 	}
 
-	public void removePlayer(Player player) {
+	public static void removePlayer(Player player) {
 		OfflinePlayer op = Bukkit.getOfflinePlayer(player.getName());
 		if (red.getPlayers().contains(op)) {
 			red.removePlayer(op);
@@ -102,13 +102,13 @@ public class TeamHandler {
 		}
 	}
 
-	public boolean isJoined(Player player) {
+	public static boolean isJoined(Player player) {
 		if (getTeam(player) == Team.RED || getTeam(player) == Team.BLUE)
 			return true;
 		return false;
 	}
 
-	public int count(Team team) {
+	public static int count(Team team) {
 		switch (team) {
 		case RED:
 			return red.getSize();
@@ -121,7 +121,7 @@ public class TeamHandler {
 		}
 	}
 
-	public List<String> getPlayersOnTeam(Team team) {
+	public static List<String> getPlayersOnTeam(Team team) {
 		List<String> res = new ArrayList<String>();
 		switch (team) {
 		case RED:
@@ -148,7 +148,7 @@ public class TeamHandler {
 		return res;
 	}
 
-	public Team getTeamWithLessPlayers() {
+	public static Team getTeamWithLessPlayers() {
 		int red = count(Team.RED);
 		int blue = count(Team.BLUE);
 		if (blue > red)
@@ -157,37 +157,37 @@ public class TeamHandler {
 			return Team.BLUE;
 	}
 
-	public String getTeamName(Team team) {
-		return team.name();
+	public static String getTeamName(Team team) {
+		switch (team) {
+		case RED:
+			return "Red Team";
+		case BLUE:
+			return "Blue Team";
+		case OBSERVER:
+			return "Observers";
+		default:
+			return "Undefined";
+		}
 	}
 
-	public ChatColor getTeamColor(Team team) {
-		return team.color();
+	public static ChatColor getTeamColor(Team team) {
+		switch (team) {
+		case RED:
+			return ChatColor.DARK_RED;
+		case BLUE:
+			return ChatColor.BLUE;
+		case OBSERVER:
+			return ChatColor.AQUA;
+		default:
+			return ChatColor.YELLOW;
+		}
 	}
 
-	public boolean isObserver(Player player) {
+	public static boolean isObserver(Player player) {
 		return getTeam(player) == Team.OBSERVER;
 	}
 
 	public enum Team {
-		RED("Red Team", ChatColor.DARK_RED), BLUE("Red Team", ChatColor.BLUE), OBSERVER(
-				"Observers", ChatColor.AQUA);
-		private final ChatColor color;
-
-		Team(String name, ChatColor color) {
-			this.color = color;
-		}
-
-		public ChatColor color() {
-			return color;
-		}
-
-		public static Team getTeam(String team) {
-			for (Team t : values()) {
-				if (t.name().toLowerCase().contains(team.toLowerCase()))
-					return t;
-			}
-			return null;
-		}
+		RED, BLUE, OBSERVER;
 	}
 }

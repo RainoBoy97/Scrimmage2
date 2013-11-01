@@ -38,7 +38,7 @@ public class ScrimTeamJoinEvent extends Event {
 	}
 
 	public void setCancelled() {
-		th.addPlayer(p, f);
+		TeamHandler.addPlayer(p, f);
 	}
 
 	private static final HandlerList handlers = new HandlerList();

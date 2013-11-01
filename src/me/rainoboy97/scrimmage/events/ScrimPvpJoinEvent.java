@@ -32,7 +32,7 @@ public class ScrimPvpJoinEvent extends Event {
 	}
 
 	public void setCancelled() {
-		th.addPlayer(p, Team.OBSERVER);
+		TeamHandler.addPlayer(p, Team.OBSERVER);
 	}
 
 	private static final HandlerList handlers = new HandlerList();
