@@ -36,6 +36,13 @@ public class LocationUtils {
 		int x2 = Integer.parseInt(regions[4]);
 		int y2 = Integer.parseInt(regions[5]);
 		int z2 = Integer.parseInt(regions[6]);
+
+		int cx = Integer.parseInt(regions[1]);
+		int cy = Integer.parseInt(regions[2]);
+		int cz = Integer.parseInt(regions[3]);
+		int r = Integer.parseInt(regions[4]);
+		int h = Integer.parseInt(regions[5]);
+
 		List<Location> loc = new ArrayList<Location>();
 		switch (regions[0].toLowerCase()) {
 		case "cuboid":
@@ -46,6 +53,14 @@ public class LocationUtils {
 			loc = RegionUtils.getRectangle(
 					RegionUtils.getLocation(x1, y1, z1, w),
 					RegionUtils.getLocation(x2, y2, z2, w));
+			return loc;
+		case "cylinder":
+			loc = RegionUtils.getCyl(RegionUtils.getLocation(cx, cy, cz, w), r,
+					h);
+			return loc;
+		case "circle":
+			loc = RegionUtils.getCircle(RegionUtils.getLocation(cx, cy, cz, w),
+					r);
 			return loc;
 		default:
 			ScrimLogger.severe("Invalid region type specified in map.yml");

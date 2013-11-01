@@ -66,7 +66,7 @@ public class ScrimMatch {
 					map.getYaml().getString("map.spawns.blue"), world);
 			obs_spawn = LocationUtils.stringToLoc(
 					map.getYaml().getString("map.spawns.obs"), world);
-			List<String> regions = map.getYaml().getStringList("map.regions");
+			List<String> regions = map.getYaml().getStringList("map.playable");
 			List<List<Location>> locations = new ArrayList<List<Location>>();
 			for (String region : regions) {
 				locations.add(LocationUtils.getRegion(region, world));

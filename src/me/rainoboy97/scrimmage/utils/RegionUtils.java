@@ -61,9 +61,23 @@ public class RegionUtils {
 
 	}
 
-	@Deprecated
-	public static Location[] getCyl(Location c, int r, int h) {
-		return null;
+	public static List<Location> getCyl(Location c, int r, int h) {
+		List<Location> loc = new ArrayList<Location>();
+		int cx = c.getBlockX();
+		int cy = c.getBlockY();
+		int cz = c.getBlockZ();
+		World w = c.getWorld();
+		int rSquared = r * r;
+		for (int x = cx - r; x <= cx + r; x++) {
+			for (int z = cz - r; z <= cz + r; z++) {
+				if ((cx - x) * (cx - x) + (cz - z) * (cz - z) <= rSquared) {
+					for (int y = cy; y < h; y++) {
+						loc.add(getLocation(x, y, z, w));
+					}
+				}
+			}
+		}
+		return loc;
 	}
 
 	public static List<Location> getRectangle(Location l1, Location l2) {
@@ -74,9 +88,13 @@ public class RegionUtils {
 						l2.getBlockZ(), w));
 	}
 
-	@Deprecated
-	public static Location[] getCircle(Location c, int r) {
-		return null;
+	public static List<Location> getCircle(Location c, int r) {
+		int x = c.getBlockX();
+		int y = 0;
+		int z = c.getBlockZ();
+		World w = c.getWorld();
+		Location center = getLocation(x, y, z, w);
+		return getCyl(center, r, w.getHighestBlockYAt(center));
 	}
 
 	public static List<Location> getUnion(List<List<Location>> locs) {
