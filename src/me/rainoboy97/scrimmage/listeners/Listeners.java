@@ -47,11 +47,9 @@ public class Listeners implements Listener {
 
 	@SuppressWarnings("unused")
 	private final Scrimmage plugin;
-	private final TeamHandler th;
 
 	public Listeners(Scrimmage scrimmage) {
 		plugin = scrimmage;
-		th = Scrimmage.getTH();
 	}
 
 	@EventHandler
@@ -63,11 +61,11 @@ public class Listeners implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 
-		th.addPlayer(player, Team.OBSERVER);
+		TeamHandler.addPlayer(player, Team.OBSERVER);
 
 		event.setJoinMessage(player.getDisplayName() + ChatColor.YELLOW
 				+ " joined the game!");
-		th.loadScoreBoardPlayer(player);
+		TeamHandler.loadScoreBoardPlayer(player);
 	}
 
 	@EventHandler
@@ -96,7 +94,8 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		if (!MatchHandler.running() || th.isObserver(event.getPlayer())) {
+		if (!MatchHandler.running()
+				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 			return;
 		}
@@ -114,7 +113,7 @@ public class Listeners implements Listener {
 
 		event.setQuitMessage(player.getDisplayName() + ChatColor.YELLOW
 				+ " left the game!");
-		th.removePlayer(player);
+		TeamHandler.removePlayer(player);
 	}
 
 	@EventHandler
@@ -124,7 +123,8 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void event_interact(PlayerInteractEvent event) {
-		if (!MatchHandler.running() || th.isObserver(event.getPlayer())) {
+		if (!MatchHandler.running()
+				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 			return;
 		}
@@ -138,35 +138,40 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void event_interactentity(PlayerInteractEntityEvent event) {
-		if (!MatchHandler.running() || th.isObserver(event.getPlayer())) {
+		if (!MatchHandler.running()
+				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_itemdrop(PlayerDropItemEvent event) {
-		if (!MatchHandler.running() || th.isObserver(event.getPlayer())) {
+		if (!MatchHandler.running()
+				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.getItemDrop().remove();
 		}
 	}
 
 	@EventHandler
 	public void event_itemdrop(PlayerPickupItemEvent event) {
-		if (!MatchHandler.running() || th.isObserver(event.getPlayer())) {
+		if (!MatchHandler.running()
+				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_break(BlockBreakEvent event) {
-		if (!MatchHandler.running() || th.isObserver(event.getPlayer())) {
+		if (!MatchHandler.running()
+				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void event_place(BlockPlaceEvent event) {
-		if (!MatchHandler.running() || th.isObserver(event.getPlayer())) {
+		if (!MatchHandler.running()
+				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 		}
 	}
@@ -288,7 +293,7 @@ public class Listeners implements Listener {
 			return;
 		}
 		if (event.getEntity() instanceof Player) {
-			if (th.isObserver((Player) event.getEntity())) {
+			if (TeamHandler.isObserver((Player) event.getEntity())) {
 				event.setCancelled(true);
 			}
 		}
@@ -303,7 +308,7 @@ public class Listeners implements Listener {
 		}
 		if (event.getDamager() instanceof Player) {
 			Player damager = (Player) event.getDamager();
-			if (th.isObserver(damager)) {
+			if (TeamHandler.isObserver(damager)) {
 				event.setCancelled(true);
 				return;
 			}
@@ -311,7 +316,7 @@ public class Listeners implements Listener {
 			Projectile proj = (Projectile) event.getDamager();
 			if (proj.getShooter() instanceof Player) {
 				Player shooter = (Player) proj.getShooter();
-				if (th.isObserver(shooter)) {
+				if (TeamHandler.isObserver(shooter)) {
 					event.setCancelled(true);
 					return;
 				}

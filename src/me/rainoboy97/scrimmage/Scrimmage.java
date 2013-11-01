@@ -4,6 +4,9 @@ import me.rainoboy97.scrimmage.commands.AdminCommands;
 import me.rainoboy97.scrimmage.commands.UserCommands;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
+import me.rainoboy97.scrimmage.listeners.BlockListeners;
+import me.rainoboy97.scrimmage.listeners.ChatListeners;
+import me.rainoboy97.scrimmage.listeners.CombatListeners;
 import me.rainoboy97.scrimmage.listeners.Listeners;
 import me.rainoboy97.scrimmage.utils.FileUtils;
 
@@ -45,6 +48,9 @@ public class Scrimmage extends JavaPlugin {
 		int loaded = MapHandler.loadMaps();
 		getLogger().info("Loaded " + loaded + " maps!");
 		regListener(new Listeners(this));
+		regListener(new ChatListeners());
+		regListener(new CombatListeners());
+		regListener(new BlockListeners());
 
 		regUserCommand("g");
 		regUserCommand("join");
@@ -58,10 +64,10 @@ public class Scrimmage extends JavaPlugin {
 		regAdminCommand("setnext");
 		regAdminCommand("pvp");
 
-		th.loadTeams();
+		TeamHandler.loadTeams();
 
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			th.addPlayer(p, Team.OBSERVER);
+			TeamHandler.addPlayer(p, Team.OBSERVER);
 		}
 	}
 

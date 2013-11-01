@@ -1,5 +1,7 @@
 package me.rainoboy97.scrimmage.listeners;
 
-public class BlockListeners {
+import org.bukkit.event.Listener;
+
+public class BlockListeners implements Listener {
 
 }

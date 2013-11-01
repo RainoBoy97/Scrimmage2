@@ -1,5 +1,7 @@
 package me.rainoboy97.scrimmage.listeners;
 
-public class CombatListeners {
+import org.bukkit.event.Listener;
+
+public class CombatListeners implements Listener {
 
 }
