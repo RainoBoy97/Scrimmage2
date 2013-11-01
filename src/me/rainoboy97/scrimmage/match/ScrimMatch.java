@@ -2,15 +2,19 @@ package me.rainoboy97.scrimmage.match;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import me.rainoboy97.scrimmage.ScrimLogger;
 import me.rainoboy97.scrimmage.utils.FileUtils;
 import me.rainoboy97.scrimmage.utils.LocationUtils;
+import me.rainoboy97.scrimmage.utils.RegionUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.block.Block;
 
 public class ScrimMatch {
 
@@ -21,7 +25,7 @@ public class ScrimMatch {
 	Location red_spawn;
 	Location blue_spawn;
 	Location obs_spawn;
-	Location[] playable;
+	List<Location> playable;
 
 	ScrimMatchState current;
 
@@ -33,6 +37,13 @@ public class ScrimMatch {
 
 	private void setMatchState(ScrimMatchState sms) {
 		current = sms;
+	}
+
+	public boolean isPlayable(Block b) {
+		if (playable.contains(b.getLocation()))
+			return true;
+		else
+			return false;
 	}
 
 	public void loadMatch() {
@@ -55,6 +66,12 @@ public class ScrimMatch {
 					map.getYaml().getString("map.spawns.blue"), world);
 			obs_spawn = LocationUtils.stringToLoc(
 					map.getYaml().getString("map.spawns.obs"), world);
+			List<String> regions = map.getYaml().getStringList("map.regions");
+			List<List<Location>> locations = new ArrayList<List<Location>>();
+			for (String region : regions) {
+				locations.add(LocationUtils.getRegion(region, world));
+			}
+			playable = RegionUtils.getUnion(locations);
 			setMatchState(ScrimMatchState.LOADED);
 		} else {
 			ScrimLogger.severe("Match could not be loaded: Invalid State");
