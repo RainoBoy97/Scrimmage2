@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.rainoboy97.scrimmage.ScrimLogger;
+import me.rainoboy97.scrimmage.Scrimmage;
+import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
 import me.rainoboy97.scrimmage.utils.FileUtils;
 import me.rainoboy97.scrimmage.utils.LocationUtils;
 import me.rainoboy97.scrimmage.utils.RegionUtils;
@@ -15,11 +17,13 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 
 public class ScrimMatch {
 
 	ScrimMap map;
 	Integer matchid;
+	Scrimmage pl;
 
 	World world;
 	Location red_spawn;
@@ -33,10 +37,7 @@ public class ScrimMatch {
 		current = ScrimMatchState.NONE;
 		this.map = map;
 		matchid = id;
-	}
-
-	private void setMatchState(ScrimMatchState sms) {
-		current = sms;
+		pl = Scrimmage.get();
 	}
 
 	public boolean isPlayable(Block b) {
@@ -44,6 +45,10 @@ public class ScrimMatch {
 			return true;
 		else
 			return false;
+	}
+
+	public Location getObsSpawn() {
+		return obs_spawn;
 	}
 
 	public void loadMatch() {
@@ -72,13 +77,25 @@ public class ScrimMatch {
 				locations.add(LocationUtils.getRegion(region, world));
 			}
 			playable = RegionUtils.getUnion(locations);
-			setMatchState(ScrimMatchState.LOADED);
+			current = ScrimMatchState.LOADED;
 		} else {
 			ScrimLogger.severe("Match could not be loaded: Invalid State");
 		}
 	}
 
 	public void teleportPlayers() {
+		Player[] players = Bukkit.getServer().getOnlinePlayers();
+		for (Player p : players) {
+			p.teleport(obs_spawn);
+		}
+		current = ScrimMatchState.TELEPORTED;
+	}
+
+	public void start(Integer count) {
+		current = ScrimMatchState.STARTING;
+	}
+
+	public void end(Team winner) {
 
 	}
 

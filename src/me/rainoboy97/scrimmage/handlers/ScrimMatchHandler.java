@@ -5,6 +5,8 @@ import java.util.Map;
 
 import me.rainoboy97.scrimmage.match.ScrimMatch;
 
+import org.bukkit.Location;
+
 public class ScrimMatchHandler {
 
 	static Integer current;
@@ -22,6 +24,10 @@ public class ScrimMatchHandler {
 
 	public static Integer getNextId() {
 		return next;
+	}
+
+	public static Location getCurrentTeleport() {
+		return getCurrentMatch().getObsSpawn();
 	}
 
 	public static ScrimMatch getCurrentMatch() {
