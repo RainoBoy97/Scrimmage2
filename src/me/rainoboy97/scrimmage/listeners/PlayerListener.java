@@ -30,6 +30,7 @@ public class PlayerListener implements Listener {
 		event.setJoinMessage(player.getDisplayName() + ChatColor.YELLOW
 				+ " joined the game!");
 		TeamHandler.loadScoreBoardPlayer(player);
+		player.teleport(ScrimMatchHandler.getCurrentTeleport());
 	}
 
 	@EventHandler
