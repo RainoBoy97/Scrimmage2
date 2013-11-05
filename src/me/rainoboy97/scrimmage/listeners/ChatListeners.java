@@ -13,7 +13,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class ChatListeners implements Listener {
 
 	@EventHandler
-	public void event_asynchat(AsyncPlayerChatEvent event) {
+	public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
 		for (String p : TeamHandler.getPlayersOnTeam(TeamHandler
 				.getTeam(player))) {
