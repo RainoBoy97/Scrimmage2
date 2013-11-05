@@ -3,8 +3,10 @@ package me.rainoboy97.scrimmage.handlers;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.rainoboy97.scrimmage.events.ScrimSetMatchEvent;
 import me.rainoboy97.scrimmage.match.ScrimMatch;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 public class ScrimMatchHandler {
@@ -30,6 +32,13 @@ public class ScrimMatchHandler {
 		return getCurrentMatch().getObsSpawn();
 	}
 
+	public static ScrimMatch getPrevMatch() {
+		if (matches.containsKey(current - 1))
+			return matches.get(current - 1);
+		else
+			return null;
+	}
+
 	public static ScrimMatch getCurrentMatch() {
 		return matches.get(current);
 	}
@@ -39,6 +48,16 @@ public class ScrimMatchHandler {
 		matches.put(next, sm);
 		current = next;
 		next = current + 1;
+		Bukkit.getPluginManager().callEvent(
+				new ScrimSetMatchEvent(mn, sm, getPrevMatch()));
+	}
+
+	public static void setMatch(ScrimMatch m) {
+		matches.put(next, m);
+		current = next;
+		next = current + 1;
+		Bukkit.getPluginManager().callEvent(
+				new ScrimSetMatchEvent(m.getMapName(), m, getPrevMatch()));
 	}
 
 	public static boolean isRunning() {

@@ -7,6 +7,7 @@ import java.util.List;
 
 import me.rainoboy97.scrimmage.ScrimLogger;
 import me.rainoboy97.scrimmage.Scrimmage;
+import me.rainoboy97.scrimmage.events.ScrimLoadMatchEvent;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
 import me.rainoboy97.scrimmage.utils.FileUtils;
 import me.rainoboy97.scrimmage.utils.LocationUtils;
@@ -40,6 +41,14 @@ public class ScrimMatch {
 		pl = Scrimmage.get();
 	}
 
+	public int getMatchId() {
+		return matchid;
+	}
+
+	public String getMapName() {
+		return map.getDirName();
+	}
+
 	public boolean isPlayable(Block b) {
 		if (playable.contains(b.getLocation()))
 			return true;
@@ -52,13 +61,16 @@ public class ScrimMatch {
 	}
 
 	public void loadMatch() {
+		boolean outcome = false;
 		if (current.equals(ScrimMatchState.NONE)) {
 			File orig = map.getOrigDir();
 			File dest = new File(Bukkit.getWorldContainer() + "\\match-"
 					+ matchid);
 			try {
 				FileUtils.copyFolder(orig, dest);
+				outcome = true;
 			} catch (IOException e) {
+				outcome = false;
 				ScrimLogger
 						.severe("Could not load match due to a copying error!");
 				e.printStackTrace();
@@ -79,8 +91,11 @@ public class ScrimMatch {
 			playable = RegionUtils.getUnion(locations);
 			current = ScrimMatchState.LOADED;
 		} else {
+			outcome = false;
 			ScrimLogger.severe("Match could not be loaded: Invalid State");
 		}
+		Bukkit.getPluginManager().callEvent(
+				new ScrimLoadMatchEvent(map, matchid, world, this, outcome));
 	}
 
 	public void teleportPlayers() {
