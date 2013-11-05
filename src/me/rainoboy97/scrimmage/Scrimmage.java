@@ -63,6 +63,7 @@ public class Scrimmage extends JavaPlugin {
 		regUserCommand("operators");
 		regUserCommand("join");
 		regUserCommand("match");
+		regUserCommand("maps");
 		regAdminCommand("a");
 		regAdminCommand("pvp");
 		for (Player p : Bukkit.getOnlinePlayers()) {

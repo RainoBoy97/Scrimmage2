@@ -1,7 +1,9 @@
 package me.rainoboy97.scrimmage.handlers;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import me.rainoboy97.scrimmage.ScrimLogger;
@@ -24,6 +26,14 @@ public final class ScrimMapHandler {
 
 	public static ScrimMap getDefaultMap() {
 		return (ScrimMap) maps.values().toArray()[0];
+	}
+
+	public static List<ScrimMap> getMapList() {
+		List<ScrimMap> sm = new ArrayList<ScrimMap>();
+		for (ScrimMap m : maps.values()) {
+			sm.add(m);
+		}
+		return sm;
 	}
 
 	public static boolean loadMaps() {

@@ -1,12 +1,16 @@
 package me.rainoboy97.scrimmage.commands;
 
+import java.util.List;
+
 import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.events.ScrimObsFromTeamJoinEvent;
 import me.rainoboy97.scrimmage.events.ScrimPvpJoinEvent;
 import me.rainoboy97.scrimmage.events.ScrimTeamJoinEvent;
+import me.rainoboy97.scrimmage.handlers.ScrimMapHandler;
 import me.rainoboy97.scrimmage.handlers.ScrimMatchHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
+import me.rainoboy97.scrimmage.match.ScrimMap;
 import me.rainoboy97.scrimmage.match.ScrimMatch.ScrimMatchState;
 import me.rainoboy97.scrimmage.utils.LookupUtils;
 
@@ -126,8 +130,8 @@ public class UserCommands implements CommandExecutor {
 		// MATCH
 
 		if (cmd.getName().equalsIgnoreCase("match")) {
-			player.sendMessage(ChatColor.RED + "--------------- "
-					+ ChatColor.GRAY + "Match info " + ChatColor.RED
+			player.sendMessage(ChatColor.RED + "---------------"
+					+ ChatColor.GRAY + " Match info " + ChatColor.RED
 					+ "---------------");
 			if (!ScrimMatchHandler.isRunning()
 					&& !(ScrimMatchHandler.getCurrentMatch().getMatchState() == ScrimMatchState.ENDED)) {
@@ -145,6 +149,40 @@ public class UserCommands implements CommandExecutor {
 					+ TeamHandler.count(Team.OBSERVER));
 		}
 
+		// MAPS
+
+		if (cmd.getName().equalsIgnoreCase("maps")) {
+			if (args.length < 2) {
+				List<ScrimMap> sm = ScrimMapHandler.getMapList();
+				double totalmaps = sm.size();
+				int pagenum = (int) Math.ceil(totalmaps / 10);
+				int thispage = 1;
+				if (args.length == 1) {
+					thispage = Integer.parseInt(args[0]);
+				}
+				int startindex = thispage * 10 - 10;
+				int endindex = startindex + 9;
+				if (endindex > sm.size()) {
+					endindex = sm.size();
+				}
+				player.sendMessage(ChatColor.RED + "---------------"
+						+ ChatColor.GRAY + " Loaded maps (" + thispage + "/"
+						+ pagenum + ") " + ChatColor.RED + "---------------");
+				if (startindex > sm.size()) {
+					player.sendMessage(ChatColor.RED + "Page does not exist!");
+				}
+				for (int i = startindex; i < endindex; i++) {
+					if (startindex < sm.size()) {
+						String name = sm.get(i).getDisplayName();
+						int id = i + 1;
+						player.sendMessage(ChatColor.RED + "" + id + ") "
+								+ ChatColor.AQUA + name);
+					}
+				}
+			} else {
+				player.sendMessage(ChatColor.RED + "Too many arguments!");
+			}
+		}
 		return true;
 	}
 }

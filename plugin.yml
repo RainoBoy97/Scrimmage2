@@ -32,6 +32,9 @@ commands:
     aliases: [ops, staff]
   pvp:
     description: Toggle PVP
+  maps:
+    description: List loaded maps
+    aliases: [loadedmaps]
   match:
     description: Information about match
     aliases: [matchinfo]
