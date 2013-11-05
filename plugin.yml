@@ -2,7 +2,7 @@ name: Scrimmage
 version: 2.0
 main: me.rainoboy97.scrimmage.Scrimmage
 author: RainoBoy97
-authors: [XX_iiShockzz_XX, hdt80bro, ShinyDialga45, bookofnathan, msalihov]
+authors: [ShinyDialga45, bookofnathan, msalihov, AtroAtomx]
 commands:
   start:
     description: Start the match.
