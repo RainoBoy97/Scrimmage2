@@ -122,21 +122,6 @@ public class Listeners implements Listener {
 	}
 
 	@EventHandler
-	public void onPlayerInteract(PlayerInteractEvent event) {
-		if (!ScrimMatchHandler.isRunning()
-				|| TeamHandler.isObserver(event.getPlayer())) {
-			event.setCancelled(true);
-			return;
-		}
-		if (!(event.getAction() == Action.RIGHT_CLICK_BLOCK))
-			return;
-		if (!(event.getClickedBlock().getType() == Material.WORKBENCH))
-			return;
-		event.setCancelled(true);
-		event.getPlayer().openWorkbench(null, true);
-	}
-
-	@EventHandler
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
 		if (!ScrimMatchHandler.isRunning()
 				|| TeamHandler.isObserver(event.getPlayer())) {
