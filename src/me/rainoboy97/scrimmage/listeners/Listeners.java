@@ -122,7 +122,7 @@ public class Listeners implements Listener {
 	}
 
 	@EventHandler
-	public void event_interact(PlayerInteractEvent event) {
+	public void onPlayerInteract(PlayerInteractEvent event) {
 		if (!ScrimMatchHandler.isRunning()
 				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
@@ -137,7 +137,7 @@ public class Listeners implements Listener {
 	}
 
 	@EventHandler
-	public void event_interactentity(PlayerInteractEntityEvent event) {
+	public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
 		if (!ScrimMatchHandler.isRunning()
 				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
@@ -145,7 +145,7 @@ public class Listeners implements Listener {
 	}
 
 	@EventHandler
-	public void event_itemdrop(PlayerDropItemEvent event) {
+	public void onPlayerDropItem(PlayerDropItemEvent event) {
 		if (!ScrimMatchHandler.isRunning()
 				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.getItemDrop().remove();
@@ -153,7 +153,7 @@ public class Listeners implements Listener {
 	}
 
 	@EventHandler
-	public void event_itemdrop(PlayerPickupItemEvent event) {
+	public void onPlayerPickupItem(PlayerPickupItemEvent event) {
 		if (!ScrimMatchHandler.isRunning()
 				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
@@ -161,7 +161,7 @@ public class Listeners implements Listener {
 	}
 
 	@EventHandler
-	public void event_break(BlockBreakEvent event) {
+	public void onBlockBreak(BlockBreakEvent event) {
 		if (!ScrimMatchHandler.isRunning()
 				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
@@ -169,7 +169,7 @@ public class Listeners implements Listener {
 	}
 
 	@EventHandler
-	public void event_place(BlockPlaceEvent event) {
+	public void onBlockPlace(BlockPlaceEvent event) {
 		if (!ScrimMatchHandler.isRunning()
 				|| TeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
@@ -177,110 +177,110 @@ public class Listeners implements Listener {
 	}
 
 	@EventHandler
-	public void event_fromto(BlockFromToEvent event) {
+	public void onBlockFromTo(BlockFromToEvent event) {
 		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
-	public void event_form(BlockFormEvent event) {
+	public void onBlockForm(BlockFormEvent event) {
 		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
-	public void event_physics(BlockPhysicsEvent event) {
+	public void onBlockPhysicsEvent(BlockPhysicsEvent event) {
 		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
-	public void event_fade(BlockFadeEvent event) {
+	public void onBlockFade(BlockFadeEvent event) {
 		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
-	public void event_decay(LeavesDecayEvent event) {
+	public void onLeavesDecay(LeavesDecayEvent event) {
 		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
-	public void event_burn(BlockBurnEvent event) {
+	public void onBlockBurn(BlockBurnEvent event) {
 		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
-	public void event_grow(BlockGrowEvent event) {
+	public void onBlockGrow(BlockGrowEvent event) {
 		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
-	public void event_damage(BlockDamageEvent event) {
+	public void onBlockDamage(BlockDamageEvent event) {
 		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
-	public void event_ignite(BlockIgniteEvent event) {
+	public void onBlockIgnite(BlockIgniteEvent event) {
 		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
-	public void event_spread(BlockSpreadEvent event) {
+	public void onBlockSpread(BlockSpreadEvent event) {
 		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
-	public void event_entityform(EntityBlockFormEvent event) {
+	public void onEntityBlockForm(EntityBlockFormEvent event) {
 		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
-	public void event_grow(StructureGrowEvent event) {
+	public void onStructureGrow(StructureGrowEvent event) {
 		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
-	public void event_explode(EntityExplodeEvent event) {
+	public void onEntityExplode(EntityExplodeEvent event) {
 		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
-	public void event_weatherchange(WeatherChangeEvent event) {
+	public void onWeatherChange(WeatherChangeEvent event) {
 		if (event.toWeatherState()) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
-	public void event_portal(PlayerPortalEvent event) {
+	public void onPlayerPortal(PlayerPortalEvent event) {
 		event.setCancelled(true);
 	}
 
 	@EventHandler
-	public void event_entityspawn(CreatureSpawnEvent event) {
+	public void onCreatureSpawn(CreatureSpawnEvent event) {
 		if (!ScrimMatchHandler.isRunning()
 				|| event.getEntity() instanceof Monster) {
 			event.setCancelled(true);
@@ -288,7 +288,7 @@ public class Listeners implements Listener {
 	}
 
 	@EventHandler
-	public void event_shootbow(EntityShootBowEvent event) {
+	public void onEntityShootBow(EntityShootBowEvent event) {
 		if (!ScrimMatchHandler.isRunning()) {
 			event.setCancelled(true);
 			return;
@@ -302,7 +302,7 @@ public class Listeners implements Listener {
 	}
 
 	@EventHandler
-	public void event_damage(EntityDamageByEntityEvent event) {
+	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		if (!ScrimMatchHandler.isRunning() || !Scrimmage.pvp) {
 			event.setCancelled(true);
 			return;
