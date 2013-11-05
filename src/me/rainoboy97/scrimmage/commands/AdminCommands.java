@@ -2,10 +2,7 @@ package me.rainoboy97.scrimmage.commands;
 
 import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.handlers.ScrimMatchHandler;
-import me.rainoboy97.scrimmage.handlers.TeamHandler;
 
-import org.apache.commons.lang.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -28,35 +25,6 @@ public class AdminCommands implements CommandExecutor {
 					+ "Only OP's can use this command!");
 			return true;
 		}
-
-		// A
-		
-		/*
-		if (cmd.getName().equalsIgnoreCase("a")) {
-			if (args.length == 0) {
-				Scrimmage.msg(player, ChatColor.RED + "/a <message>");
-				return true;
-			}
-			String message = StringUtils.join(args, " ", 0, args.length);
-			for (Player p : Bukkit.getOnlinePlayers()) {
-				if (p.isOp()) {
-					p.sendMessage(ChatColor.GRAY
-							+ "["
-							+ ChatColor.GOLD
-							+ "A"
-							+ ChatColor.GRAY
-							+ "] "
-							+ Scrimmage.getPrefix(player)
-							+ TeamHandler.getTeamColor(TeamHandler
-									.getTeam(player)) + player.getName()
-							+ ChatColor.WHITE + ": " + message);
-				}
-			}
-			Scrimmage.logChat("[A] " + player.getName() + ": " + message);
-		}
-		*/
-		//Admin chat is not needed, Overcast's admin chat which this is trying to replicate 
-		//is open source and is completely adequate.
 
 		// START
 		/*

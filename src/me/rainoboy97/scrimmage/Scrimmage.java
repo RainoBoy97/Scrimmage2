@@ -6,11 +6,13 @@ import me.rainoboy97.scrimmage.handlers.ScrimMapHandler;
 import me.rainoboy97.scrimmage.handlers.ScrimMatchHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
-import me.rainoboy97.scrimmage.listeners.BlockListeners;
-import me.rainoboy97.scrimmage.listeners.ChatListeners;
-import me.rainoboy97.scrimmage.listeners.CombatListeners;
-import me.rainoboy97.scrimmage.listeners.EventCallListeners;
-import me.rainoboy97.scrimmage.listeners.Listeners;
+import me.rainoboy97.scrimmage.listeners.BlockListener;
+import me.rainoboy97.scrimmage.listeners.ChatListener;
+import me.rainoboy97.scrimmage.listeners.EntityListener;
+import me.rainoboy97.scrimmage.listeners.PlayerListener;
+import me.rainoboy97.scrimmage.listeners.ScrimEventListener;
+import me.rainoboy97.scrimmage.listeners.ServerListener;
+import me.rainoboy97.scrimmage.listeners.WorldListener;
 import me.rainoboy97.scrimmage.utils.FileUtils;
 
 import org.bukkit.Bukkit;
@@ -53,18 +55,19 @@ public class Scrimmage extends JavaPlugin {
 		} else {
 			Bukkit.getServer().shutdown();
 		}
-		regListener(new Listeners());
-		regListener(new ChatListeners());
-		regListener(new CombatListeners());
-		regListener(new BlockListeners());
-		regListener(new EventCallListeners());
+		regListener(new BlockListener());
+		regListener(new ChatListener());
+		regListener(new EntityListener());
+		regListener(new PlayerListener());
+		regListener(new ScrimEventListener());
+		regListener(new ServerListener());
+		regListener(new WorldListener());
 
 		regUserCommand("g");
 		regUserCommand("operators");
 		regUserCommand("join");
 		regUserCommand("match");
 		regUserCommand("maps");
-		regAdminCommand("a");
 		regAdminCommand("pvp");
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			TeamHandler.addPlayer(p, Team.OBSERVER);
