@@ -30,6 +30,8 @@ public class AdminCommands implements CommandExecutor {
 		}
 
 		// A
+		
+		/*
 		if (cmd.getName().equalsIgnoreCase("a")) {
 			if (args.length == 0) {
 				Scrimmage.msg(player, ChatColor.RED + "/a <message>");
@@ -52,6 +54,9 @@ public class AdminCommands implements CommandExecutor {
 			}
 			Scrimmage.logChat("[A] " + player.getName() + ": " + message);
 		}
+		*/
+		//Admin chat is not needed, Overcast's admin chat which this is trying to replicate 
+		//is open source and is completely adequate.
 
 		// START
 		/*
