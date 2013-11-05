@@ -49,6 +49,10 @@ public class ScrimMatch {
 		return map.getDirName();
 	}
 
+	public ScrimMap getMap() {
+		return map;
+	}
+
 	public boolean isPlayable(Block b) {
 		if (playable.contains(b.getLocation()))
 			return true;
@@ -75,8 +79,8 @@ public class ScrimMatch {
 						.severe("Could not load match due to a copying error!");
 				e.printStackTrace();
 			}
-			Bukkit.createWorld(new WorldCreator("match-" + matchid));
-			world = Bukkit.getWorld("match-" + matchid);
+			world = Bukkit.getServer().createWorld(
+					new WorldCreator("match-" + matchid));
 			red_spawn = LocationUtils.stringToLoc(
 					map.getYaml().getString("map.spawns.red"), world);
 			blue_spawn = LocationUtils.stringToLoc(
@@ -111,7 +115,11 @@ public class ScrimMatch {
 	}
 
 	public void end(Team winner) {
+		current = ScrimMatchState.ENDED;
+	}
 
+	public void end() {
+		current = ScrimMatchState.ENDED;
 	}
 
 	public ScrimMatchState getMatchState() {

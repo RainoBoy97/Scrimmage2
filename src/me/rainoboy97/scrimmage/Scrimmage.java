@@ -36,17 +36,24 @@ public class Scrimmage extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		if (ScrimMatchHandler.isRunning()) {
-			ScrimMatchHandler.getCurrentMatch();
-		}
+		ScrimMatchHandler.clean();
+		ScrimMapHandler.clean();
+		FileUtils.clean();
 	}
 
 	@Override
 	public void onEnable() {
 		FileUtils.clean();
-		ScrimMapHandler.loadMaps();
 		ScrimMatchHandler.initHandler();
-		regListener(new Listeners(this));
+		TeamHandler.loadTeams();
+		if (ScrimMapHandler.loadMaps()) {
+			ScrimMatchHandler.setMatch(ScrimMapHandler.getDefaultMap());
+			ScrimMatchHandler.getCurrentMatch().loadMatch();
+			ScrimMatchHandler.getCurrentMatch().teleportPlayers();
+		} else {
+			Bukkit.getServer().shutdown();
+		}
+		regListener(new Listeners());
 		regListener(new ChatListeners());
 		regListener(new CombatListeners());
 		regListener(new BlockListeners());
@@ -54,11 +61,10 @@ public class Scrimmage extends JavaPlugin {
 
 		regUserCommand("g");
 		regUserCommand("operators");
+		regUserCommand("join");
+		regUserCommand("match");
 		regAdminCommand("a");
 		regAdminCommand("pvp");
-
-		TeamHandler.loadTeams();
-
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			TeamHandler.addPlayer(p, Team.OBSERVER);
 		}

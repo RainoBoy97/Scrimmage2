@@ -82,10 +82,8 @@ public class RegionUtils {
 
 	public static List<Location> getRectangle(Location l1, Location l2) {
 		World w = l1.getWorld();
-		return getCube(
-				getLocation(l1.getBlockX(), 0, l1.getBlockZ(), w),
-				getLocation(l2.getBlockX(), w.getHighestBlockYAt(l2),
-						l2.getBlockZ(), w));
+		return getCube(getLocation(l1.getBlockX(), 0, l1.getBlockZ(), w),
+				getLocation(l2.getBlockX(), 256, l2.getBlockZ(), w));
 	}
 
 	public static List<Location> getCircle(Location c, int r) {
@@ -94,14 +92,14 @@ public class RegionUtils {
 		int z = c.getBlockZ();
 		World w = c.getWorld();
 		Location center = getLocation(x, y, z, w);
-		return getCyl(center, r, w.getHighestBlockYAt(center));
+		return getCyl(center, r, 256);
 	}
 
 	public static List<Location> getUnion(List<List<Location>> locs) {
 		List<Location> floc = new ArrayList<Location>();
-		for (List<Location> l : locs) {
-			for (Location loc : l) {
-				floc.add(loc);
+		for (List<Location> listloc : locs) {
+			for (Location location : listloc) {
+				floc.add(location);
 			}
 		}
 		return floc;

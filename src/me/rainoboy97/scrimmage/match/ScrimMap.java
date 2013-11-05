@@ -15,7 +15,7 @@ public final class ScrimMap {
 	Integer playercount;
 
 	public ScrimMap(String filename) {
-		dirname = "map_" + filename;
+		dirname = filename;
 		origdir = new File(Bukkit.getWorldContainer() + "\\" + dirname);
 		yml = YamlConfiguration.loadConfiguration(new File(Bukkit
 				.getWorldContainer() + "\\" + dirname + "\\map.yml"));

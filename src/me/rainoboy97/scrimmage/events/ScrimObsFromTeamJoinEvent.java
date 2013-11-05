@@ -11,12 +11,10 @@ public class ScrimObsFromTeamJoinEvent extends Event {
 
 	Player p;
 	Team pr;
-	TeamHandler th;
 
-	public ScrimObsFromTeamJoinEvent(Player p, Team pr, TeamHandler th) {
+	public ScrimObsFromTeamJoinEvent(Player p, Team pr) {
 		this.p = p;
 		this.pr = pr;
-		this.th = th;
 	}
 
 	public Player getPlayer() {
@@ -25,10 +23,6 @@ public class ScrimObsFromTeamJoinEvent extends Event {
 
 	public Team getOldTeam() {
 		return pr;
-	}
-
-	public TeamHandler getTeamHandler() {
-		return th;
 	}
 
 	public void setCancelled() {

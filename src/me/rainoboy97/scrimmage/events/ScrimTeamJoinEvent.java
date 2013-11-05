@@ -12,13 +12,11 @@ public class ScrimTeamJoinEvent extends Event {
 	Player p;
 	Team t;
 	Team f;
-	TeamHandler th;
 
-	public ScrimTeamJoinEvent(Player p, Team t, Team f, TeamHandler th) {
+	public ScrimTeamJoinEvent(Player p, Team t, Team f) {
 		this.p = p;
 		this.t = t;
 		this.f = f;
-		this.th = th;
 	}
 
 	public Player getPlayer() {
@@ -31,10 +29,6 @@ public class ScrimTeamJoinEvent extends Event {
 
 	public Team getOldTeam() {
 		return f;
-	}
-
-	public TeamHandler getTeamHandler() {
-		return th;
 	}
 
 	public void setCancelled() {

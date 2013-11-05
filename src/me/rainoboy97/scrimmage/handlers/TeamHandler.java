@@ -29,8 +29,8 @@ public class TeamHandler {
 		obj = sb.registerNewObjective("playerhealth", "health");
 		obj.setDisplaySlot(DisplaySlot.BELOW_NAME);
 		obj.setDisplayName(" / 20 " + ChatColor.RED + "♥");
-		red = sb.registerNewTeam("Red Team");
-		blue = sb.registerNewTeam("Blue Team");
+		red = sb.registerNewTeam("Red");
+		blue = sb.registerNewTeam("Blue");
 		obs = sb.registerNewTeam("Observers");
 		red.setAllowFriendlyFire(false);
 		blue.setAllowFriendlyFire(false);

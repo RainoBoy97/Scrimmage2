@@ -41,16 +41,15 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.world.StructureGrowEvent;
 
 public class Listeners implements Listener {
 
-	@SuppressWarnings("unused")
-	private final Scrimmage plugin;
-
-	public Listeners(Scrimmage scrimmage) {
-		plugin = scrimmage;
+	@EventHandler
+	public void onPingEvent(ServerListPingEvent e) {
+		e.setMotd(ScrimMatchHandler.getMotd());
 	}
 
 	@EventHandler

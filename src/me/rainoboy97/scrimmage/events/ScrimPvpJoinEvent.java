@@ -11,12 +11,10 @@ public class ScrimPvpJoinEvent extends Event {
 
 	Player p;
 	Team t;
-	TeamHandler th;
 
-	public ScrimPvpJoinEvent(Player p, Team t, TeamHandler th) {
+	public ScrimPvpJoinEvent(Player p, Team t) {
 		this.p = p;
 		this.t = t;
-		this.th = th;
 	}
 
 	public Player getPlayer() {
@@ -25,10 +23,6 @@ public class ScrimPvpJoinEvent extends Event {
 
 	public Team getTeam() {
 		return t;
-	}
-
-	public TeamHandler getTeamHandler() {
-		return th;
 	}
 
 	public void setCancelled() {

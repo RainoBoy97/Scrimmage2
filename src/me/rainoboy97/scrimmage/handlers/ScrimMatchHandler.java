@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import me.rainoboy97.scrimmage.events.ScrimSetMatchEvent;
+import me.rainoboy97.scrimmage.match.ScrimMap;
 import me.rainoboy97.scrimmage.match.ScrimMatch;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 
 public class ScrimMatchHandler {
@@ -28,6 +30,24 @@ public class ScrimMatchHandler {
 		return next;
 	}
 
+	public static String getMotd() {
+		ScrimMatch m = getCurrentMatch();
+		switch (m.getMatchState()) {
+		case STARTING:
+			return ChatColor.GREEN + "» " + ChatColor.AQUA
+					+ m.getMap().getDisplayName() + ChatColor.GREEN + " «";
+		case RUNNING:
+			return ChatColor.GOLD + "» " + ChatColor.AQUA
+					+ m.getMap().getDisplayName() + ChatColor.GOLD + " «";
+		case ENDED:
+			return ChatColor.RED + "» " + ChatColor.AQUA
+					+ m.getMap().getDisplayName() + ChatColor.RED + " «";
+		default:
+			return ChatColor.GRAY + "» " + ChatColor.AQUA
+					+ m.getMap().getDisplayName() + ChatColor.GRAY + " «";
+		}
+	}
+
 	public static Location getCurrentTeleport() {
 		return getCurrentMatch().getObsSpawn();
 	}
@@ -36,7 +56,7 @@ public class ScrimMatchHandler {
 		if (matches.containsKey(current - 1))
 			return matches.get(current - 1);
 		else
-			return null;
+			return matches.get(0);
 	}
 
 	public static ScrimMatch getCurrentMatch() {
@@ -50,6 +70,15 @@ public class ScrimMatchHandler {
 		next = current + 1;
 		Bukkit.getPluginManager().callEvent(
 				new ScrimSetMatchEvent(mn, sm, getPrevMatch()));
+	}
+
+	public static void setMatch(ScrimMap mn) {
+		ScrimMatch sm = new ScrimMatch(next, mn);
+		matches.put(next, sm);
+		current = next;
+		next = current + 1;
+		Bukkit.getPluginManager().callEvent(
+				new ScrimSetMatchEvent(mn.getDirName(), sm, getPrevMatch()));
 	}
 
 	public static void setMatch(ScrimMatch m) {
@@ -71,6 +100,14 @@ public class ScrimMatchHandler {
 				return false;
 			}
 		}
+	}
+
+	public static void clean() {
+		if (getCurrentMatch() != null) {
+			getCurrentMatch().end();
+		}
+		matches.clear();
+		initHandler();
 	}
 
 }

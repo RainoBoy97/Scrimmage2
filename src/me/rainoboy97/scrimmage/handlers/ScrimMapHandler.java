@@ -22,7 +22,11 @@ public final class ScrimMapHandler {
 		return maps.get(n);
 	}
 
-	public static void loadMaps() {
+	public static ScrimMap getDefaultMap() {
+		return (ScrimMap) maps.values().toArray()[0];
+	}
+
+	public static boolean loadMaps() {
 		ScrimLogger.info("Loading maps...");
 		File mapcont = Bukkit.getWorldContainer();
 		for (File f : mapcont.listFiles()) {
@@ -42,7 +46,20 @@ public final class ScrimMapHandler {
 			}
 		}
 		mapamount = maps.size();
-		ScrimLogger.info("Finished loading " + mapamount + " maps!");
+		if (mapamount > 0) {
+			ScrimLogger.info("Finished loading " + mapamount + " maps!");
+			return true;
+		} else {
+			ScrimLogger.alert("No maps could be loaded");
+			ScrimLogger.alert("SERVER SHUTTING DOWN");
+			return false;
+		}
+
+	}
+
+	public static void clean() {
+		maps.clear();
+		mapamount = 0;
 	}
 
 }
