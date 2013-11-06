@@ -123,6 +123,7 @@ public class ScrimMatch {
 			}
 			obs_spawn = RegionUtils.getUnion(locations_obs);
 			timelock = map.getYaml().getLong("map.timelock");
+
 			br = new BukkitRunnable() {
 
 				@Override
@@ -131,7 +132,9 @@ public class ScrimMatch {
 				}
 
 			};
-			br.runTaskTimer(Scrimmage.get(), 0L, 200L);
+			if (timelock != 0) {
+				br.runTaskTimer(Scrimmage.get(), 0L, 200L);
+			}
 			List<String> regions = map.getYaml().getStringList("map.playable");
 			List<List<Location>> locations = new ArrayList<List<Location>>();
 			for (String region : regions) {
