@@ -105,4 +105,17 @@ public class RegionUtils {
 		return floc;
 	}
 
+	public static List<Location> getExclude(List<Location> base,
+			List<Location> exc) {
+		List<Location> floc = new ArrayList<Location>();
+		for (Location l : base) {
+			for (Location l2 : exc) {
+				if (!l.equals(l2)) {
+					floc.add(l);
+				}
+			}
+		}
+		return floc;
+	}
+
 }

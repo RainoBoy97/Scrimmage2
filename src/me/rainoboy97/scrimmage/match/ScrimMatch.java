@@ -10,6 +10,7 @@ import javax.annotation.Nonnull;
 import me.rainoboy97.scrimmage.ScrimLogger;
 import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.events.ScrimLoadMatchEvent;
+import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
 import me.rainoboy97.scrimmage.utils.FileUtils;
 import me.rainoboy97.scrimmage.utils.LocationUtils;
@@ -36,6 +37,9 @@ public class ScrimMatch {
 	@Nonnull
 	long timelock;
 	List<Location> playable;
+	List<Location> unplayable;
+	List<Location> unplayable_red;
+	List<Location> unplayable_blue;
 	BukkitRunnable br;
 
 	ScrimMatchState current;
@@ -59,8 +63,36 @@ public class ScrimMatch {
 		return map;
 	}
 
-	public boolean isPlayable(Block b) {
-		if (playable.contains(b.getLocation()))
+	public boolean isPlayableTeam(Team t, Location l) {
+		switch (t) {
+		case RED:
+			if (unplayable_red.contains(l.getBlock().getLocation()))
+				return false;
+			else
+				return true;
+		case BLUE:
+			if (unplayable_blue.contains(l.getBlock().getLocation()))
+				return false;
+			else
+				return true;
+		default:
+			return true;
+
+		}
+	}
+
+	public boolean isPlayable(Block b, Player p) {
+		if (playable.contains(b.getLocation())
+				&& isPlayableTeam(TeamHandler.getTeam(p), b.getLocation()))
+			return true;
+		else
+			return false;
+	}
+
+	public boolean isPlayable(Location l, Player p) {
+		if (playable.contains(l.getBlock().getLocation())
+				&& isPlayableTeam(TeamHandler.getTeam(p), l.getBlock()
+						.getLocation()))
 			return true;
 		else
 			return false;
@@ -135,12 +167,35 @@ public class ScrimMatch {
 			if (timelock != 0) {
 				br.runTaskTimer(Scrimmage.get(), 0L, 200L);
 			}
-			List<String> regions = map.getYaml().getStringList("map.playable");
+			List<String> regions = map.getYaml().getStringList(
+					"map.regions.playable");
 			List<List<Location>> locations = new ArrayList<List<Location>>();
 			for (String region : regions) {
 				locations.add(LocationUtils.getRegion(region, world));
 			}
 			playable = RegionUtils.getUnion(locations);
+			List<String> regions_un = map.getYaml().getStringList(
+					"map.regions.unplayable");
+			List<List<Location>> locations_un = new ArrayList<List<Location>>();
+			for (String region : regions_un) {
+				locations_un.add(LocationUtils.getRegion(region, world));
+			}
+			unplayable = RegionUtils.getUnion(locations_un);
+			playable = RegionUtils.getExclude(playable, unplayable);
+			List<String> regions_unr = map.getYaml().getStringList(
+					"map.regions.unplayable_red");
+			List<List<Location>> locations_unr = new ArrayList<List<Location>>();
+			for (String region : regions_unr) {
+				locations_unr.add(LocationUtils.getRegion(region, world));
+			}
+			unplayable_red = RegionUtils.getUnion(locations_unr);
+			List<String> regions_unb = map.getYaml().getStringList(
+					"map.regions.unplayable_blue");
+			List<List<Location>> locations_unb = new ArrayList<List<Location>>();
+			for (String region : regions_unb) {
+				locations_unb.add(LocationUtils.getRegion(region, world));
+			}
+			unplayable_blue = RegionUtils.getUnion(locations_unb);
 			current = ScrimMatchState.LOADED;
 		} else {
 			outcome = false;
@@ -164,12 +219,17 @@ public class ScrimMatch {
 
 	public void end(Team winner) {
 		current = ScrimMatchState.ENDED;
-		br.cancel();
+		if (timelock != 0) {
+			br.cancel();
+		}
+
 	}
 
 	public void end() {
 		current = ScrimMatchState.ENDED;
-		br.cancel();
+		if (timelock != 0) {
+			br.cancel();
+		}
 	}
 
 	public ScrimMatchState getMatchState() {
