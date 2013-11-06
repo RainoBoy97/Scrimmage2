@@ -49,9 +49,9 @@ public class RegionUtils {
 
 		List<Location> loc = new ArrayList<Location>();
 
-		for (int x = MinX; x < MaxX; x++) {
-			for (int y = MinY; y < MaxY; y++) {
-				for (int z = MinZ; z < MaxZ; z++) {
+		for (int x = MinX; x <= MaxX; x++) {
+			for (int y = MinY; y <= MaxY; y++) {
+				for (int z = MinZ; z <= MaxZ; z++) {
 					loc.add(getLocation(x, y, z, w));
 				}
 			}
@@ -71,7 +71,7 @@ public class RegionUtils {
 		for (int x = cx - r; x <= cx + r; x++) {
 			for (int z = cz - r; z <= cz + r; z++) {
 				if ((cx - x) * (cx - x) + (cz - z) * (cz - z) <= rSquared) {
-					for (int y = cy; y < h; y++) {
+					for (int y = cy; y <= cy + h; y++) {
 						loc.add(getLocation(x, y, z, w));
 					}
 				}

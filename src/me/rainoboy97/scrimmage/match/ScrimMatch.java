@@ -30,9 +30,9 @@ public class ScrimMatch {
 	Scrimmage pl;
 
 	World world;
-	Location red_spawn;
-	Location blue_spawn;
-	Location obs_spawn;
+	List<Location> red_spawn;
+	List<Location> blue_spawn;
+	List<Location> obs_spawn;
 	@Nonnull
 	long timelock;
 	List<Location> playable;
@@ -67,7 +67,21 @@ public class ScrimMatch {
 	}
 
 	public Location getObsSpawn() {
-		return obs_spawn;
+		int biggest = obs_spawn.size() - 1;
+		int random = (int) (Math.random() * (biggest + 1));
+		return obs_spawn.get(random);
+	}
+
+	public Location getBlueSpawn() {
+		int biggest = blue_spawn.size() - 1;
+		int random = (int) (Math.random() * (biggest + 1));
+		return blue_spawn.get(random);
+	}
+
+	public Location getRedSpawn() {
+		int biggest = red_spawn.size() - 1;
+		int random = (int) (Math.random() * (biggest + 1));
+		return red_spawn.get(random);
 	}
 
 	public void loadMatch() {
@@ -87,12 +101,27 @@ public class ScrimMatch {
 			}
 			world = Bukkit.getServer().createWorld(
 					new WorldCreator("match-" + matchid));
-			red_spawn = LocationUtils.stringToLoc(
-					map.getYaml().getString("map.spawns.red"), world);
-			blue_spawn = LocationUtils.stringToLoc(
-					map.getYaml().getString("map.spawns.blue"), world);
-			obs_spawn = LocationUtils.stringToLoc(
-					map.getYaml().getString("map.spawns.obs"), world);
+			List<String> regions_red = map.getYaml().getStringList(
+					"map.spawns.red");
+			List<List<Location>> locations_red = new ArrayList<List<Location>>();
+			for (String region : regions_red) {
+				locations_red.add(LocationUtils.getRegion(region, world));
+			}
+			red_spawn = RegionUtils.getUnion(locations_red);
+			List<String> regions_blue = map.getYaml().getStringList(
+					"map.spawns.blue");
+			List<List<Location>> locations_blue = new ArrayList<List<Location>>();
+			for (String region : regions_blue) {
+				locations_blue.add(LocationUtils.getRegion(region, world));
+			}
+			blue_spawn = RegionUtils.getUnion(locations_blue);
+			List<String> regions_obs = map.getYaml().getStringList(
+					"map.spawns.obs");
+			List<List<Location>> locations_obs = new ArrayList<List<Location>>();
+			for (String region : regions_obs) {
+				locations_obs.add(LocationUtils.getRegion(region, world));
+			}
+			obs_spawn = RegionUtils.getUnion(locations_obs);
 			timelock = map.getYaml().getLong("map.timelock");
 			br = new BukkitRunnable() {
 
@@ -121,7 +150,7 @@ public class ScrimMatch {
 	public void teleportPlayers() {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player p : players) {
-			p.teleport(obs_spawn);
+			p.teleport(getObsSpawn());
 		}
 		current = ScrimMatchState.TELEPORTED;
 	}
