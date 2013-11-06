@@ -4,12 +4,12 @@ main: me.rainoboy97.scrimmage.Scrimmage
 author: RainoBoy97
 authors: [ShinyDialga45, bookofnathan, msalihov, AtroAtomx]
 commands:
+  adminchat:
+    description: Chat with other OPs
+    aliases: [a, ac]
   start:
     description: Start the match.
     aliases: [begin]
-  cycle:
-    description: Cycle between maps.
-    aliases: [cyc]
   cancel:
     description: Cancel the current countdown.
     aliases: [cancelcountdown, stopcountdown]
@@ -19,12 +19,15 @@ commands:
   join:
     description: Join a team
     aliases: [j]
+  setmatch:
+    description: Load a match
+    aliases: [setnext,loadmatch,cycle,sn,sm,lm,cyc]
+  reloadmaps:
+    description: Reloads maps
+    aliases: [rlm, rlmaps, rmaps]
   g:
     description: Talk in global chat.
     aliases: [global, talk]
-  setnext:
-    description: Set the next map.
-    aliases: [sn]
   operators:
     description: List all operators.
     aliases: [ops, staff]

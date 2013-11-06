@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import me.rainoboy97.scrimmage.ScrimLogger;
 import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.events.ScrimLoadMatchEvent;
@@ -19,6 +21,7 @@ import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class ScrimMatch {
 
@@ -30,7 +33,10 @@ public class ScrimMatch {
 	Location red_spawn;
 	Location blue_spawn;
 	Location obs_spawn;
+	@Nonnull
+	long timelock;
 	List<Location> playable;
+	BukkitRunnable br;
 
 	ScrimMatchState current;
 
@@ -87,6 +93,16 @@ public class ScrimMatch {
 					map.getYaml().getString("map.spawns.blue"), world);
 			obs_spawn = LocationUtils.stringToLoc(
 					map.getYaml().getString("map.spawns.obs"), world);
+			timelock = map.getYaml().getLong("map.timelock");
+			br = new BukkitRunnable() {
+
+				@Override
+				public void run() {
+					world.setTime(timelock);
+				}
+
+			};
+			br.runTaskTimer(Scrimmage.get(), 0L, 200L);
 			List<String> regions = map.getYaml().getStringList("map.playable");
 			List<List<Location>> locations = new ArrayList<List<Location>>();
 			for (String region : regions) {
@@ -116,10 +132,12 @@ public class ScrimMatch {
 
 	public void end(Team winner) {
 		current = ScrimMatchState.ENDED;
+		br.cancel();
 	}
 
 	public void end() {
 		current = ScrimMatchState.ENDED;
+		br.cancel();
 	}
 
 	public ScrimMatchState getMatchState() {

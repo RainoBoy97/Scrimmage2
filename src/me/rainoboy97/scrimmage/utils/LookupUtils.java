@@ -1,6 +1,10 @@
 package me.rainoboy97.scrimmage.utils;
 
+import java.util.List;
+
+import me.rainoboy97.scrimmage.handlers.ScrimMapHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
+import me.rainoboy97.scrimmage.match.ScrimMap;
 
 public class LookupUtils {
 
@@ -38,4 +42,28 @@ public class LookupUtils {
 		return t;
 	}
 
+	public static int countMap(String s) {
+		int count = 0;
+		List<ScrimMap> sm = ScrimMapHandler.getMapList();
+		for (ScrimMap m : sm) {
+			String dn = m.getDisplayName();
+			if (dn.toLowerCase().startsWith(s.toLowerCase())) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	public static ScrimMap getMap(String s) {
+		ScrimMap map = null;
+		List<ScrimMap> sm = ScrimMapHandler.getMapList();
+		for (ScrimMap m : sm) {
+			String dn = m.getDisplayName();
+			if (dn.toLowerCase().startsWith(s.toLowerCase())) {
+				map = m;
+				break;
+			}
+		}
+		return map;
+	}
 }

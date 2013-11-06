@@ -1,8 +1,17 @@
 package me.rainoboy97.scrimmage.commands;
 
-import me.rainoboy97.scrimmage.Scrimmage;
-import me.rainoboy97.scrimmage.handlers.ScrimMatchHandler;
+import java.util.ArrayList;
+import java.util.List;
 
+import me.rainoboy97.scrimmage.Scrimmage;
+import me.rainoboy97.scrimmage.handlers.ScrimMapHandler;
+import me.rainoboy97.scrimmage.handlers.ScrimMatchHandler;
+import me.rainoboy97.scrimmage.handlers.TeamHandler;
+import me.rainoboy97.scrimmage.match.ScrimMap;
+import me.rainoboy97.scrimmage.utils.LookupUtils;
+
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -26,6 +35,31 @@ public class AdminCommands implements CommandExecutor {
 			return true;
 		}
 
+		// ADMIN
+
+		if (cmd.getName().equalsIgnoreCase("adminchat")) {
+			if (args.length == 0) {
+				Scrimmage.msg(player, ChatColor.RED + "/a <message>");
+				return true;
+			}
+			String message = StringUtils.join(args, " ", 0, args.length);
+			for (Player p : Bukkit.getOnlinePlayers()) {
+				if (p.isOp()) {
+					p.sendMessage(ChatColor.GRAY
+							+ "["
+							+ ChatColor.GOLD
+							+ "A"
+							+ ChatColor.GRAY
+							+ "] "
+							+ Scrimmage.getPrefix(player)
+							+ TeamHandler.getTeamColor(TeamHandler
+									.getTeam(player)) + player.getName()
+							+ ChatColor.WHITE + ": " + message);
+				}
+			}
+			Scrimmage.logChat("[A] " + player.getName() + ": " + message);
+		}
+
 		// START
 		/*
 		 * if (cmd.getName().equalsIgnoreCase("start")) { int seconds = 30; if
@@ -40,23 +74,46 @@ public class AdminCommands implements CommandExecutor {
 		 * CountdownHandler.startCountdown(seconds); }
 		 */
 
-		// CYCLE
-		/*
-		 * if (cmd.getName().equalsIgnoreCase("cycle")) { int seconds = 30; if
-		 * (args.length != 0) { try { seconds = Integer.parseInt(args[0]); }
-		 * catch (Exception e) { player.sendMessage("/cycle <seconds>"); return
-		 * true; } } if (MapHandler.getNext() == null) { Scrimmage.msg(player,
-		 * ChatColor.RED + "No map set!"); return true; } if
-		 * (MatchHandler.running()) { Scrimmage.msg(player, ChatColor.RED +
-		 * "Cant cycle while match is running!"); return true; }
-		 * Scrimmage.msg(player, ChatColor.GREEN + "Started cycle (" +
-		 * ChatColor.RED + seconds + ChatColor.GREEN + ")");
-		 * CountdownHandler.startCycle(seconds); }
-		 * 
-		 * // CANCEL if (cmd.getName().equalsIgnoreCase("cancel")) {
-		 * Scrimmage.msg(player, ChatColor.GREEN +
-		 * "Cancelled all running tasks!"); CountdownHandler.cancelAll(); }
-		 */
+		// LOAD MATCH
+		if (cmd.getName().equalsIgnoreCase("setmatch")) {
+			if (args.length > 0) {
+				List<String> arg = new ArrayList<String>();
+				for (String arg2 : args) {
+					arg.add(arg2);
+				}
+				StringBuilder msg = new StringBuilder();
+				for (String s : arg) {
+					msg.append(" " + s);
+				}
+				String message = msg.toString().trim();
+				int count = LookupUtils.countMap(message);
+				if (count == 1) {
+					ScrimMap m = LookupUtils.getMap(message);
+					player.sendMessage(ChatColor.GREEN + "Loading "
+							+ m.getDisplayName() + "...");
+					ScrimMatchHandler.setMatch(m);
+					ScrimMatchHandler.getCurrentMatch().loadMatch();
+					ScrimMatchHandler.getCurrentMatch().teleportPlayers();
+					player.sendMessage(ChatColor.GREEN + "Done loading "
+							+ m.getDisplayName() + "!");
+				} else if (count > 1) {
+					sender.sendMessage(ChatColor.AQUA + "" + count
+							+ ChatColor.GREEN + " maps matched query "
+							+ ChatColor.AQUA + message);
+				} else {
+					sender.sendMessage(ChatColor.RED + "No maps matched query "
+							+ ChatColor.AQUA + message);
+				}
+			} else {
+				player.sendMessage(ChatColor.RED + "Not enough arguments!");
+			}
+		}
+
+		if (cmd.getName().equalsIgnoreCase("reloadmaps")) {
+			ScrimMapHandler.clean();
+			ScrimMapHandler.loadMaps();
+			player.sendMessage(ChatColor.GREEN + "Maps reloaded!");
+		}
 
 		// END
 		if (cmd.getName().equalsIgnoreCase("end")) {
@@ -67,16 +124,6 @@ public class AdminCommands implements CommandExecutor {
 			Scrimmage.msg(player, ChatColor.GREEN
 					+ "Force stopped the current match!");
 		}
-
-		// LOADMAP
-		/*
-		 * if (cmd.getName().equalsIgnoreCase("setnext")) { if (args.length ==
-		 * 0) { Scrimmage.msg(player, ChatColor.RED + "/setnext <mapname>");
-		 * return true; } String mapname = StringUtils.join(args, " ", 0,
-		 * args.length); if (!MapHandler.mapExsists(mapname)) {
-		 * Scrimmage.msg(player, ChatColor.RED + "Invalid map!"); return true; }
-		 * Scrimmage.msg(player, ChatColor.RED + "Not done yet!"); }
-		 */
 
 		// PVP
 		if (cmd.getName().equalsIgnoreCase("pvp")) {
@@ -90,5 +137,4 @@ public class AdminCommands implements CommandExecutor {
 		}
 		return true;
 	}
-
 }
