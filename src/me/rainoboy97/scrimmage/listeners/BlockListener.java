@@ -1,7 +1,7 @@
 package me.rainoboy97.scrimmage.listeners;
 
 import me.rainoboy97.scrimmage.handlers.ScrimMatchHandler;
-import me.rainoboy97.scrimmage.handlers.TeamHandler;
+import me.rainoboy97.scrimmage.handlers.ScrimTeamHandler;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,7 +23,7 @@ public class BlockListener implements Listener {
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event) {
 		if (!ScrimMatchHandler.isRunning()
-				|| TeamHandler.isObserver(event.getPlayer())) {
+				|| ScrimTeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 		}
 	}
@@ -31,7 +31,7 @@ public class BlockListener implements Listener {
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
 		if (!ScrimMatchHandler.isRunning()
-				|| TeamHandler.isObserver(event.getPlayer())) {
+				|| ScrimTeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 		}
 	}

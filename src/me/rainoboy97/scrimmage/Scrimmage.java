@@ -4,8 +4,8 @@ import me.rainoboy97.scrimmage.commands.AdminCommands;
 import me.rainoboy97.scrimmage.commands.UserCommands;
 import me.rainoboy97.scrimmage.handlers.ScrimMapHandler;
 import me.rainoboy97.scrimmage.handlers.ScrimMatchHandler;
-import me.rainoboy97.scrimmage.handlers.TeamHandler;
-import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
+import me.rainoboy97.scrimmage.handlers.ScrimTeamHandler;
+import me.rainoboy97.scrimmage.handlers.ScrimTeamHandler.Team;
 import me.rainoboy97.scrimmage.listeners.BlockListener;
 import me.rainoboy97.scrimmage.listeners.ChatListener;
 import me.rainoboy97.scrimmage.listeners.EntityListener;
@@ -47,7 +47,7 @@ public class Scrimmage extends JavaPlugin {
 	public void onEnable() {
 		FileUtils.clean();
 		ScrimMatchHandler.initHandler();
-		TeamHandler.loadTeams();
+		ScrimTeamHandler.loadTeams();
 		if (ScrimMapHandler.loadMaps()) {
 			ScrimMatchHandler.setMatch(ScrimMapHandler.getDefaultMap());
 			ScrimMatchHandler.getCurrentMatch().loadMatch();
@@ -73,7 +73,7 @@ public class Scrimmage extends JavaPlugin {
 		regAdminCommand("setmatch");
 		regAdminCommand("reloadmaps");
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			TeamHandler.addPlayer(p, Team.OBSERVER);
+			ScrimTeamHandler.addPlayer(p, Team.OBSERVER);
 		}
 	}
 

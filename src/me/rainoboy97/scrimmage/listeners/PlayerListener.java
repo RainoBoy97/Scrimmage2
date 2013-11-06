@@ -1,8 +1,8 @@
 package me.rainoboy97.scrimmage.listeners;
 
 import me.rainoboy97.scrimmage.handlers.ScrimMatchHandler;
-import me.rainoboy97.scrimmage.handlers.TeamHandler;
-import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
+import me.rainoboy97.scrimmage.handlers.ScrimTeamHandler;
+import me.rainoboy97.scrimmage.handlers.ScrimTeamHandler.Team;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -27,18 +27,18 @@ public class PlayerListener implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 
-		TeamHandler.addPlayer(player, Team.OBSERVER);
+		ScrimTeamHandler.addPlayer(player, Team.OBSERVER);
 
 		event.setJoinMessage(player.getDisplayName() + ChatColor.YELLOW
 				+ " joined the game!");
-		TeamHandler.loadScoreBoardPlayer(player);
+		ScrimTeamHandler.loadScoreBoardPlayer(player);
 		player.teleport(ScrimMatchHandler.getCurrentTeleport());
 	}
 
 	@EventHandler
 	public void onPlayerSpawn(PlayerRespawnEvent e) {
 		Player p = e.getPlayer();
-		Team t = TeamHandler.getTeam(p);
+		Team t = ScrimTeamHandler.getTeam(p);
 		switch (t) {
 		case RED:
 			Location sl1 = ScrimMatchHandler.getCurrentMatch().getRedSpawn();
@@ -82,7 +82,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		if (!ScrimMatchHandler.isRunning()
-				|| TeamHandler.isObserver(event.getPlayer())) {
+				|| ScrimTeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 			return;
 		}
@@ -100,13 +100,13 @@ public class PlayerListener implements Listener {
 
 		event.setQuitMessage(player.getDisplayName() + ChatColor.YELLOW
 				+ " left the game!");
-		TeamHandler.removePlayer(player);
+		ScrimTeamHandler.removePlayer(player);
 	}
 
 	@EventHandler
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
 		if (!ScrimMatchHandler.isRunning()
-				|| TeamHandler.isObserver(event.getPlayer())) {
+				|| ScrimTeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 		}
 	}
@@ -114,7 +114,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerDropItem(PlayerDropItemEvent event) {
 		if (!ScrimMatchHandler.isRunning()
-				|| TeamHandler.isObserver(event.getPlayer())) {
+				|| ScrimTeamHandler.isObserver(event.getPlayer())) {
 			event.getItemDrop().remove();
 		}
 	}
@@ -122,7 +122,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerPickupItem(PlayerPickupItemEvent event) {
 		if (!ScrimMatchHandler.isRunning()
-				|| TeamHandler.isObserver(event.getPlayer())) {
+				|| ScrimTeamHandler.isObserver(event.getPlayer())) {
 			event.setCancelled(true);
 		}
 	}

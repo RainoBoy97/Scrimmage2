@@ -3,7 +3,7 @@ package me.rainoboy97.scrimmage.utils;
 import java.util.List;
 
 import me.rainoboy97.scrimmage.handlers.ScrimMapHandler;
-import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
+import me.rainoboy97.scrimmage.handlers.ScrimTeamHandler.Team;
 import me.rainoboy97.scrimmage.match.ScrimMap;
 
 public class LookupUtils {

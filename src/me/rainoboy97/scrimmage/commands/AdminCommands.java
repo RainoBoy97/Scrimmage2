@@ -6,7 +6,7 @@ import java.util.List;
 import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.handlers.ScrimMapHandler;
 import me.rainoboy97.scrimmage.handlers.ScrimMatchHandler;
-import me.rainoboy97.scrimmage.handlers.TeamHandler;
+import me.rainoboy97.scrimmage.handlers.ScrimTeamHandler;
 import me.rainoboy97.scrimmage.match.ScrimMap;
 import me.rainoboy97.scrimmage.utils.LookupUtils;
 
@@ -52,7 +52,7 @@ public class AdminCommands implements CommandExecutor {
 							+ ChatColor.GRAY
 							+ "] "
 							+ Scrimmage.getPrefix(player)
-							+ TeamHandler.getTeamColor(TeamHandler
+							+ ScrimTeamHandler.getTeamColor(ScrimTeamHandler
 									.getTeam(player)) + player.getName()
 							+ ChatColor.WHITE + ": " + message);
 				}

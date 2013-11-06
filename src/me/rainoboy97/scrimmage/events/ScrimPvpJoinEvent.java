@@ -1,7 +1,7 @@
 package me.rainoboy97.scrimmage.events;
 
-import me.rainoboy97.scrimmage.handlers.TeamHandler;
-import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
+import me.rainoboy97.scrimmage.handlers.ScrimTeamHandler;
+import me.rainoboy97.scrimmage.handlers.ScrimTeamHandler.Team;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -26,7 +26,7 @@ public class ScrimPvpJoinEvent extends Event {
 	}
 
 	public void setCancelled() {
-		TeamHandler.addPlayer(p, Team.OBSERVER);
+		ScrimTeamHandler.addPlayer(p, Team.OBSERVER);
 	}
 
 	private static final HandlerList handlers = new HandlerList();

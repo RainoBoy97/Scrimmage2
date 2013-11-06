@@ -14,7 +14,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
-public class TeamHandler {
+public class ScrimTeamHandler {
 
 	static ScoreboardManager sm;
 	static Scoreboard sb;

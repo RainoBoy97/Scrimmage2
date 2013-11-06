@@ -1,7 +1,7 @@
 package me.rainoboy97.scrimmage.listeners;
 
 import me.rainoboy97.scrimmage.Scrimmage;
-import me.rainoboy97.scrimmage.handlers.TeamHandler;
+import me.rainoboy97.scrimmage.handlers.ScrimTeamHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,7 +15,7 @@ public class ChatListener implements Listener {
 	@EventHandler
 	public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
-		for (String p : TeamHandler.getPlayersOnTeam(TeamHandler
+		for (String p : ScrimTeamHandler.getPlayersOnTeam(ScrimTeamHandler
 				.getTeam(player))) {
 			Player t = Bukkit.getPlayerExact(p);
 			t.sendMessage(ChatColor.GRAY + "[T] " + player.getDisplayName()

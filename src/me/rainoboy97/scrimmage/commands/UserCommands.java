@@ -8,8 +8,8 @@ import me.rainoboy97.scrimmage.events.ScrimPvpJoinEvent;
 import me.rainoboy97.scrimmage.events.ScrimTeamJoinEvent;
 import me.rainoboy97.scrimmage.handlers.ScrimMapHandler;
 import me.rainoboy97.scrimmage.handlers.ScrimMatchHandler;
-import me.rainoboy97.scrimmage.handlers.TeamHandler;
-import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
+import me.rainoboy97.scrimmage.handlers.ScrimTeamHandler;
+import me.rainoboy97.scrimmage.handlers.ScrimTeamHandler.Team;
 import me.rainoboy97.scrimmage.match.ScrimMap;
 import me.rainoboy97.scrimmage.match.ScrimMatch.ScrimMatchState;
 import me.rainoboy97.scrimmage.utils.LookupUtils;
@@ -56,7 +56,7 @@ public class UserCommands implements CommandExecutor {
 			Team oldteam;
 			Team team = null;
 			boolean obs = false;
-			oldteam = TeamHandler.getTeam((Player) sender);
+			oldteam = ScrimTeamHandler.getTeam((Player) sender);
 			if (args.length == 1) {
 				int count = LookupUtils.countTeam(args[0]);
 				if (count == 1) {
@@ -71,7 +71,7 @@ public class UserCommands implements CommandExecutor {
 							+ args[0]);
 				}
 			} else {
-				team = TeamHandler.getTeamWithLessPlayers();
+				team = ScrimTeamHandler.getTeamWithLessPlayers();
 			}
 			if (team != null) {
 				if (team == Team.OBSERVER) {
@@ -84,17 +84,17 @@ public class UserCommands implements CommandExecutor {
 							+ "You cannot join a team until the next match!");
 					return true;
 				}
-				if (TeamHandler.isJoined(player) && !obs) {
+				if (ScrimTeamHandler.isJoined(player) && !obs) {
 					Scrimmage.msg(player, ChatColor.RED
 							+ "You have already joined a team!");
 					return true;
 				}
-				TeamHandler.addPlayer(player, team);
+				ScrimTeamHandler.addPlayer(player, team);
 				Scrimmage.msg(
 						player,
 						ChatColor.GRAY
 								+ "You joined team "
-								+ TeamHandler.getTeamColor(team)
+								+ ScrimTeamHandler.getTeamColor(team)
 								+ StringUtils.capitalize(team.name()
 										.toLowerCase()));
 				Bukkit.getPluginManager().callEvent(
@@ -142,11 +142,11 @@ public class UserCommands implements CommandExecutor {
 			 * TimeUtils.formatIntoHHMMSS(MatchHandler.getTime())); }
 			 */
 			player.sendMessage(ChatColor.RED + "Red: " + ChatColor.GRAY
-					+ TeamHandler.count(Team.RED) + ChatColor.DARK_AQUA + " | "
+					+ ScrimTeamHandler.count(Team.RED) + ChatColor.DARK_AQUA + " | "
 					+ ChatColor.BLUE + "Blue: " + ChatColor.GRAY
-					+ TeamHandler.count(Team.BLUE) + ChatColor.DARK_AQUA
+					+ ScrimTeamHandler.count(Team.BLUE) + ChatColor.DARK_AQUA
 					+ " | " + ChatColor.AQUA + "Observer: " + ChatColor.GRAY
-					+ TeamHandler.count(Team.OBSERVER));
+					+ ScrimTeamHandler.count(Team.OBSERVER));
 		}
 
 		// MAPS

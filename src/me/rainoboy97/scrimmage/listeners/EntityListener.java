@@ -2,7 +2,7 @@ package me.rainoboy97.scrimmage.listeners;
 
 import me.rainoboy97.scrimmage.Scrimmage;
 import me.rainoboy97.scrimmage.handlers.ScrimMatchHandler;
-import me.rainoboy97.scrimmage.handlers.TeamHandler;
+import me.rainoboy97.scrimmage.handlers.ScrimTeamHandler;
 
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
@@ -25,7 +25,7 @@ public class EntityListener implements Listener {
 		}
 		if (event.getDamager() instanceof Player) {
 			Player damager = (Player) event.getDamager();
-			if (TeamHandler.isObserver(damager)) {
+			if (ScrimTeamHandler.isObserver(damager)) {
 				event.setCancelled(true);
 				return;
 			}
@@ -33,7 +33,7 @@ public class EntityListener implements Listener {
 			Projectile proj = (Projectile) event.getDamager();
 			if (proj.getShooter() instanceof Player) {
 				Player shooter = (Player) proj.getShooter();
-				if (TeamHandler.isObserver(shooter)) {
+				if (ScrimTeamHandler.isObserver(shooter)) {
 					event.setCancelled(true);
 					return;
 				}
@@ -48,7 +48,7 @@ public class EntityListener implements Listener {
 			return;
 		}
 		if (event.getEntity() instanceof Player) {
-			if (TeamHandler.isObserver((Player) event.getEntity())) {
+			if (ScrimTeamHandler.isObserver((Player) event.getEntity())) {
 				event.setCancelled(true);
 			}
 		}
