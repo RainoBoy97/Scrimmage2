@@ -5,6 +5,7 @@ import me.rainoboy97.scrimmage.handlers.TeamHandler;
 import me.rainoboy97.scrimmage.handlers.TeamHandler.Team;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,6 +19,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class PlayerListener implements Listener {
 
@@ -31,6 +33,26 @@ public class PlayerListener implements Listener {
 				+ " joined the game!");
 		TeamHandler.loadScoreBoardPlayer(player);
 		player.teleport(ScrimMatchHandler.getCurrentTeleport());
+	}
+
+	@EventHandler
+	public void onPlayerSpawn(PlayerRespawnEvent e) {
+		Player p = e.getPlayer();
+		Team t = TeamHandler.getTeam(p);
+		switch (t) {
+		case RED:
+			Location sl1 = ScrimMatchHandler.getCurrentMatch().getRedSpawn();
+			e.setRespawnLocation(sl1);
+			break;
+		case BLUE:
+			Location sl2 = ScrimMatchHandler.getCurrentMatch().getBlueSpawn();
+			e.setRespawnLocation(sl2);
+			break;
+		default:
+			Location sl3 = ScrimMatchHandler.getCurrentTeleport();
+			e.setRespawnLocation(sl3);
+			break;
+		}
 	}
 
 	@EventHandler
